@@ -500,6 +500,8 @@
   </div>
   <button id="btnUnlockAdmin">Unlock admin</button>
   <button id="btnRenameUser" style="display:none;">Rename another user (admin)</button>
+  <!-- Delete user button (admin) -->
+  <button id="btnDeleteUser" style="display:none;">Delete a user (admin)</button>
 </div>
 
 <!-- Firebase -->
@@ -541,6 +543,7 @@ const btnRenameUser = document.getElementById("btnRenameUser");
 const btnUnlockAdmin = document.getElementById("btnUnlockAdmin");
 const adminSectionHeader = document.getElementById("adminSectionHeader");
 const adminCaption = document.getElementById("adminCaption");
+const btnDeleteUser = document.getElementById("btnDeleteUser");
 
 const propertySelect = document.getElementById("propertySelect");
 const addPropertyBtn = document.getElementById("addPropertyBtn");
@@ -616,6 +619,7 @@ menuBtn.onclick = () => {
 adminCloseBtn.onclick = () => {
   adminPanel.classList.remove("open");
 };
+
 btnUnlockAdmin.onclick = () => {
   const code = prompt("Admin code?");
   if(code !== ADMIN_CODE){
@@ -623,19 +627,43 @@ btnUnlockAdmin.onclick = () => {
     return;
   }
   btnRenameUser.style.display = "block";
+  btnDeleteUser.style.display = "block";
   adminSectionHeader.style.display = "block";
   adminCaption.style.display = "block";
   alert("Admin tools unlocked");
 };
-btnChangeName.onclick = () => {
-  const newName = prompt("Enter new name:");
-  if(!newName) return;
-  currentUserName = newName.trim();
+
+/* CHANGE MY NAME – NOW REQUIRES ADMIN CODE */
+btnChangeName.onclick = async () => {
+  const code = prompt("Admin code required to change name:");
+  if (code !== ADMIN_CODE) {
+    alert("Access denied. Ask the owner/manager if this needs to be changed.");
+    return;
+  }
+
+  const newName = prompt("Enter new name for this device:");
+  if (!newName) return;
+  const trimmed = newName.trim();
+  if (!trimmed) return;
+
+  // Optional: warn if name already exists in /users
+  const existingSnap = await db.ref("users/" + trimmed).once("value");
+  if (existingSnap.exists() && trimmed !== currentUserName) {
+    const proceed = confirm(
+      'The name "' + trimmed + '" is already registered.\n\n' +
+      "Use this name anyway? (This will NOT move existing bookings.)"
+    );
+    if (!proceed) return;
+  }
+
+  currentUserName = trimmed;
   localStorage.setItem("hh_user_name", currentUserName);
   ensureUserColour(currentUserName);
   updateUserUI();
   adminPanel.classList.remove("open");
 };
+
+/* RENAME ANOTHER USER (ADMIN) */
 btnRenameUser.onclick = async () => {
   const oldName = prompt("Enter CURRENT user name (exact):");
   if(!oldName) return;
@@ -670,6 +698,50 @@ btnRenameUser.onclick = async () => {
     updateUserUI();
   }
   alert('User renamed from "'+oldName+'" to "'+newName+'".');
+  adminPanel.classList.remove("open");
+};
+
+/* DELETE USER (ADMIN) */
+btnDeleteUser.onclick = async () => {
+  const delName = prompt("Enter user name to DELETE (exact):");
+  if(!delName) return;
+
+  const confirmDelete = confirm(
+    'Delete user "' + delName + '" and all of their bookings?'
+  );
+  if(!confirmDelete) return;
+
+  const userRef = db.ref("users/" + delName);
+  const snap = await userRef.once("value");
+  if(!snap.exists()){
+    alert("User not found");
+    return;
+  }
+
+  // Remove all bookings made by this user across all properties
+  const root = db.ref("bookings");
+  const snapshot = await root.once("value");
+  snapshot.forEach(propSnap => {
+    propSnap.forEach(dateSnap => {
+      const val = dateSnap.val();
+      if(val && val.name === delName){
+        dateSnap.ref.remove();
+      }
+    });
+  });
+
+  // Remove user profile (colour etc.)
+  await userRef.remove();
+
+  // If this was the current device user, fall back to "Guest"
+  if(currentUserName === delName){
+    currentUserName = "Guest";
+    localStorage.setItem("hh_user_name", currentUserName);
+    ensureUserColour(currentUserName);
+    updateUserUI();
+  }
+
+  alert('User "' + delName + '" and their bookings have been deleted from this system.');
   adminPanel.classList.remove("open");
 };
 
