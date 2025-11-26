@@ -1,341 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>Holiday Home Booking</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Ash Shack Booking</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1b4d6b">
 
-<!-- Nicer font -->
-<link rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-<style>
-/* ------------------------------------------------------
-   GLOBAL BACKGROUND – RIVER PHOTO + NEUTRAL WASH
------------------------------------------------------- */
-body {
-  font-family: "Poppins", sans-serif;
-  margin: 0;
-
-body {
-  font-family: "Poppins", sans-serif;
-  margin: 0;
-  background: #eaf0f4; /* pale blue/grey */
-}
-
-/* ------------------------------------------------------
-   GLASS MAIN PANEL
------------------------------------------------------- */
-.app {
-  max-width: 400px;          /* or 360/480, as you prefer */
-  margin: 0 auto;
-  min-height: 100vh;
-  padding: 12px;
-  box-sizing: border-box;
-
-  /* Photo now lives INSIDE the box */
-  background:
-    linear-gradient(
-      rgba(255, 255, 255, 0.80),
-      rgba(255, 255, 255, 0.90)
-    ),
-    url("river-bg.jpg");
-  background-size: cover;
-  background-position: center;
-
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.6);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-  overflow: hidden; /* keeps the photo clipped to the rounded box */
-}
-
-/* ------------------------------------------------------
-   HEADERS / TEXT
------------------------------------------------------- */
-h1 {
-  text-align: center;
-  font-size: 1.4rem;
-  margin-bottom: 4px;
-  font-weight: 600;
-}
-
-.subtitle {
-  text-align: center;
-  font-size: 0.88rem;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.welcome {
-  text-align: center;
-  margin-bottom: 16px;
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-/* ------------------------------------------------------
-   TOP BAR – USER NAME + CHANGE BUTTON
------------------------------------------------------- */
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14px;
-}
-
-.user-name span {
-  font-weight: 600;
-}
-
-.colour-preview {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 1px solid #999;
-  display: inline-block;
-  margin-left: 4px;
-}
-
-/* ------------------------------------------------------
-   PROPERTY SELECTOR – GLASSY + MINI BUTTONS
------------------------------------------------------- */
-.property-bar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 14px;
-}
-
-.property-label {
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.property-select {
-  flex: 1;
-  padding: 10px 12px;
-  font-size: 1rem;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  background: rgba(255,255,255,0.8);
-}
-
-.prop-mini-btn {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  font-size: 18px;
-  font-weight: 600;
-  border: 1px solid #bbb;
-  background: rgba(255,255,255,0.65);
-  backdrop-filter: blur(4px);
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.prop-del {
-  background: rgba(255,235,235,0.7);
-  border-color: #d4a4a4;
-  color: #a33;
-}
-
-.prop-mini-btn:active {
-  transform: scale(0.88);
-}
-
-/* ------------------------------------------------------
-   MONTH NAVIGATION
------------------------------------------------------- */
-.month-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.month-center {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-}
-
-.month-select {
-  min-width: 120px;
-  padding: 6px;
-  border-radius: 8px;
-}
-
-.year-input {
-  width: 70px;
-  text-align: center;
-  padding: 6px;
-  border-radius: 8px;
-}
-
-/* ------------------------------------------------------
-   VIEW TOGGLE
------------------------------------------------------- */
-.view-toggle {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.view-btn {
-  padding: 6px 14px;
-  border-radius: 999px;
-  border: 1px solid #aaa;
-  background: rgba(255,255,255,0.6);
-  cursor: pointer;
-  font-size: 0.85rem;
-}
-
-.view-btn-active {
-  background: #0078ff;
-  border-color: #0078ff;
-  color: #fff;
-}
-
-/* ------------------------------------------------------
-   CALENDAR CELLS
------------------------------------------------------- */
-.calendar {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.calendar th {
-  font-size: 0.75rem;
-  padding-bottom: 4px;
-  color: #444;
-}
-
-.calendar td {
-  width: 14%;
-  height: 54px;
-  border: 1px solid rgba(255,255,255,0.4);
-  background: rgba(255,255,255,0.20);  /* very light glass */
-  backdrop-filter: blur(3px);
-}
-
-/* Day button inside the cell */
-.day-btn {
-  width: 100%;
-  height: 100%;
-  border: none;
-  background: transparent;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  cursor: pointer;
-
-  font-size: 0.82rem;
-}
-
-.day-number {
-  font-weight: 600;
-  margin-bottom: 2px;
-}
-
-.booking-badge {
-  font-size: 0.65rem;
-  padding: 2px 4px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.7);
-  color: #222;
-}
-
-/* ------------------------------------------------------
-   YEAR VIEW MINI GRIDS
------------------------------------------------------- */
-#yearView { display: none; }
-
-.year-grid {
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 10px;
-}
-
-.year-month {
-  background: rgba(255,255,255,0.6);
-  border: 1px solid rgba(0,0,0,0.08);
-  border-radius: 8px;
-  padding: 6px;
-}
-
-.year-month-title {
-  font-size: 0.78rem;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 4px;
-}
-
-.calendar-mini {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.calendar-mini th {
-  font-size: 0.6rem;
-}
-
-.calendar-mini td {
-  border: 1px solid rgba(0,0,0,0.08);
-  height: 30px;
-}
-
-/* ------------------------------------------------------
-   USER LEGEND
------------------------------------------------------- */
-.user-legend {
-  text-align: center;
-  margin-top: 14px;
-  font-size: 0.82rem;
-}
-
-.user-legend-item {
-  display: inline-flex;
-  align-items: center;
-  margin: 3px 8px;
-  gap: 4px;
-}
-
-.user-legend-swatch {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: 1px solid #999;
-}
-
-/* Buttons general */
-button {
-  font-family: inherit;
-}
-</style>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: #eaf0f4;
+    }
+    .app {
+      max-width: 380px;
+      margin: 0 auto;
+      padding: 10px;
+      min-height: 100vh;
+      box-sizing: border-box;
+      background:
+        linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.92)),
+        url("river-bg.jpg");
+      background-size: cover;
+      background-position: center;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.4);
+      overflow: hidden;
+    }
+    h1 {
+      text-align: center;
+      margin: 6px 0 0 0;
+      font-size: 1.3rem;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 0.8rem;
+      margin-bottom: 12px;
+      color: #333;
+    }
+    .welcome {
+      text-align: center;
+      font-size: 0.85rem;
+      margin-bottom: 14px;
+    }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 0.85rem;
+    }
+    .colour-preview {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid #666;
+      margin-left: 4px;
+    }
+    .property-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 12px;
+      font-size: 0.85rem;
+    }
+    .property-select {
+      flex: 1;
+      padding: 6px;
+      font-size: 0.85rem;
+      border-radius: 8px;
+    }
+    .prop-mini-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1px solid #aaa;
+      background: rgba(255,255,255,0.7);
+      font-size: 16px;
+      font-weight: 600;
+      padding: 0;
+      cursor: pointer;
+    }
+    .prop-del {
+      background: rgba(255,200,200,0.6);
+      border-color: #bb7777;
+      color: #a33;
+    }
+    .month-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 0.8rem;
+    }
+    .month-center {
+      display: flex;
+      gap: 4px;
+    }
+    .month-select, .year-input {
+      padding: 4px;
+      font-size: 0.8rem;
+    }
+    .year-input {
+      width: 60px;
+    }
+    .view-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .view-btn {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      border: 1px solid #999;
+      background: rgba(255,255,255,0.7);
+      cursor: pointer;
+    }
+    .view-btn-active {
+      background: #0078ff;
+      color: #fff;
+      border-color: #0078ff;
+    }
+    .calendar {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.75rem;
+    }
+    .calendar th {
+      color: #222;
+    }
+    .calendar td {
+      height: 42px;
+      border: 1px solid rgba(0,0,0,0.12);
+      background: rgba(255,255,255,0.25);
+      backdrop-filter: blur(3px);
+      padding: 0;
+    }
+    .day-btn {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    .day-number {
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+    .booking-badge {
+      font-size: 0.6rem;
+      padding: 2px 4px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.7);
+    }
+    #yearView { display: none; }
+    .year-grid {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 6px;
+    }
+    .year-month {
+      padding: 4px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.4);
+      background: rgba(255,255,255,0.4);
+    }
+    .year-month-title {
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .calendar-mini td {
+      height: 24px;
+      background: rgba(255,255,255,0.25);
+      border: 1px solid rgba(0,0,0,0.12);
+      padding: 0;
+    }
+    .user-legend {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 0.75rem;
+    }
+    .user-legend-item {
+      display: inline-flex;
+      align-items: center;
+      margin: 0 6px;
+    }
+    .user-legend-swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 4px;
+      border: 1px solid #666;
+    }
+  </style>
 </head>
 <body>
-
 <div class="app">
-  <h1>Holiday Home Booking</h1>
-  <div class="subtitle">Tap a day to book it. Shared between family & friends.</div>
+  <h1>Ash Shack Booking</h1>
+  <div class="subtitle">Tap a day to book it.</div>
   <div id="welcomeMessage" class="welcome"></div>
 
   <div class="top-bar">
-    <div class="user-name">
-      You are: <span id="userNameLabel"></span>
-      <span id="userColourPreview" class="colour-preview"></span>
-    </div>
+    <div>You: <span id="userNameLabel"></span> <span id="userColourPreview" class="colour-preview"></span></div>
     <button id="changeNameBtn">Change</button>
   </div>
 
   <div class="property-bar">
-    <span class="property-label">Property:</span>
+    <span>Property:</span>
     <select id="propertySelect" class="property-select"></select>
     <button id="addPropertyBtn" class="prop-mini-btn">+</button>
     <button id="deletePropertyBtn" class="prop-mini-btn prop-del">−</button>
@@ -345,13 +229,13 @@ button {
     <button id="prevMonthBtn">◀</button>
     <div class="month-center">
       <select id="monthSelect" class="month-select"></select>
-      <input id="yearInput" type="number" class="year-input">
+      <input id="yearInput" class="year-input" type="number">
     </div>
     <button id="nextMonthBtn">▶</button>
   </div>
 
   <div class="view-toggle">
-    <button id="viewMonthBtn" class="view-btn view-btn-active">1 Month</button>
+    <button id="viewMonthBtn" class="view-btn view-btn-active">Month</button>
     <button id="viewYearBtn" class="view-btn">Year</button>
   </div>
 
@@ -359,8 +243,7 @@ button {
     <table class="calendar">
       <thead>
         <tr>
-          <th>Sun</th><th>Mon</th><th>Tue</th>
-          <th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th>
+          <th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th>
         </tr>
       </thead>
       <tbody id="calendarBody"></tbody>
@@ -379,14 +262,8 @@ button {
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
-/* ------------------------------------------------------
-   ADMIN SETTINGS
------------------------------------------------------- */
 const ADMIN_CODE = "1746";
 
-/* ------------------------------------------------------
-   FIREBASE INIT
------------------------------------------------------- */
 firebase.initializeApp({
   apiKey: "AIzaSyDXdfo2XI7xuHs3LOc6q4CbVpMudHfBTCs",
   authDomain: "ash-shack.firebaseapp.com",
@@ -398,438 +275,358 @@ firebase.initializeApp({
 });
 const db = firebase.database();
 
-/* ------------------------------------------------------
-   STATE
------------------------------------------------------- */
 let currentUserName = null;
 let currentPropertyId = null;
 let bookingsRef = null;
 let bookings = {};
 let userColours = {};
-
 let currentYear = new Date().getFullYear();
 let currentMonth = new Date().getMonth();
 let viewMode = "month";
 
-const MONTH_NAMES=[
+const MONTH_NAMES = [
   "January","February","March","April","May","June",
   "July","August","September","October","November","December"
 ];
 
-/* ------------------------------------------------------
-   DOM
------------------------------------------------------- */
-const userNameLabel=document.getElementById("userNameLabel");
-const userColourPreview=document.getElementById("userColourPreview");
-const welcomeMessage=document.getElementById("welcomeMessage");
-const changeNameBtn=document.getElementById("changeNameBtn");
+const userNameLabel = document.getElementById("userNameLabel");
+const userColourPreview = document.getElementById("userColourPreview");
+const welcomeMessage = document.getElementById("welcomeMessage");
+const changeNameBtn = document.getElementById("changeNameBtn");
+const propertySelect = document.getElementById("propertySelect");
+const addPropertyBtn = document.getElementById("addPropertyBtn");
+const deletePropertyBtn = document.getElementById("deletePropertyBtn");
+const monthSelect = document.getElementById("monthSelect");
+const yearInput = document.getElementById("yearInput");
+const prevMonthBtn = document.getElementById("prevMonthBtn");
+const nextMonthBtn = document.getElementById("nextMonthBtn");
+const viewMonthBtn = document.getElementById("viewMonthBtn");
+const viewYearBtn = document.getElementById("viewYearBtn");
+const monthView = document.getElementById("monthView");
+const yearView = document.getElementById("yearView");
+const calendarBody = document.getElementById("calendarBody");
+const yearGrid = document.getElementById("yearGrid");
+const userLegend = document.getElementById("userLegend");
 
-const propertySelect=document.getElementById("propertySelect");
-const addPropertyBtn=document.getElementById("addPropertyBtn");
-const deletePropertyBtn=document.getElementById("deletePropertyBtn");
-
-const monthSelect=document.getElementById("monthSelect");
-const yearInput=document.getElementById("yearInput");
-const prevMonthBtn=document.getElementById("prevMonthBtn");
-const nextMonthBtn=document.getElementById("nextMonthBtn");
-
-const viewMonthBtn=document.getElementById("viewMonthBtn");
-const viewYearBtn=document.getElementById("viewYearBtn");
-const monthView=document.getElementById("monthView");
-const yearView=document.getElementById("yearView");
-const calendarBody=document.getElementById("calendarBody");
-const yearGrid=document.getElementById("yearGrid");
-const userLegend=document.getElementById("userLegend");
-
-/* ------------------------------------------------------
-   UTILITIES
------------------------------------------------------- */
 function slugify(t){
   return t.toLowerCase().trim().replace(/\s+/g,"-").replace(/[^a-z0-9\-]/g,"");
 }
 function formatDateKey(y,m,d){
-  return `${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+  return y + "-" + String(m+1).padStart(2,"0") + "-" + String(d).padStart(2,"0");
 }
 function colourFromName(name){
-  let hash=0;
-  for(let i=0;i<name.length;i++){
-    hash=name.charCodeAt(i)+((hash<<5)-hash);
-  }
-  return `hsl(${Math.abs(hash)%360},65%,75%)`;
+  let h = 0;
+  for(let i=0;i<name.length;i++) h = name.charCodeAt(i)+((h<<5)-h);
+  return "hsl(" + (Math.abs(h)%360) + ",65%,75%)";
 }
 
-/* ------------------------------------------------------
-   USER INIT
------------------------------------------------------- */
 function ensureUserColour(name){
-  const ref=db.ref("users/"+name);
+  const ref = db.ref("users/"+name);
   ref.once("value",snap=>{
     if(!snap.exists()) ref.set({colour:colourFromName(name)});
   });
 }
 
 function askForName(){
-  let n="";
+  let n = "";
   while(!n){
-    n=prompt("Enter your name:");
-    if(n===null)n="Guest";
-    n=n.trim();
+    n = prompt("Enter your name:") || "Guest";
+    n = n.trim();
   }
-  currentUserName=n;
-  localStorage.setItem("hh_user_name",n);
+  currentUserName = n;
+  localStorage.setItem("hh_user_name", n);
   ensureUserColour(n);
-  updateCurrentUserUI();
+  updateUserUI();
 }
 
 function initUser(){
-  const stored=localStorage.getItem("hh_user_name");
+  const stored = localStorage.getItem("hh_user_name");
   if(stored){
-    currentUserName=stored;
+    currentUserName = stored;
     ensureUserColour(stored);
-  } else askForName();
-  updateCurrentUserUI();
+  } else {
+    askForName();
+  }
+  updateUserUI();
 }
 
-changeNameBtn.onclick=()=>{
-  const code=prompt("Admin code:");
-  if(code!==ADMIN_CODE) return alert("Incorrect.");
+function updateUserUI(){
+  userNameLabel.textContent = currentUserName || "";
+  const col = userColours[currentUserName]?.colour || colourFromName(currentUserName || "");
+  userColourPreview.style.background = col;
+  welcomeMessage.textContent = currentUserName ? ("Hi " + currentUserName + "! 🏡✨") : "";
+}
+
+changeNameBtn.onclick = () => {
+  const code = prompt("Admin code:");
+  if(code !== ADMIN_CODE) return alert("Incorrect.");
   localStorage.removeItem("hh_user_name");
   askForName();
 };
 
-function updateCurrentUserUI(){
-  userNameLabel.textContent=currentUserName;
-  const c=userColours[currentUserName]?.colour || colourFromName(currentUserName);
-  userColourPreview.style.background=c;
-  welcomeMessage.textContent=`Hi ${currentUserName}! 🏡✨`;
-}
-
-/* ------------------------------------------------------
-   USERS LISTENER
------------------------------------------------------- */
 db.ref("users").on("value",snap=>{
-  userColours=snap.val()||{};
-  updateCurrentUserUI();
-  renderUserLegend();
-  if(viewMode==="month")renderCalendar();
-  else renderYearView();
+  userColours = snap.val() || {};
+  updateUserUI();
+  renderLegend();
+  if(viewMode==="month") renderCalendar();
+  else renderYear();
 });
 
-/* ------------------------------------------------------
-   PROPERTY HANDLING
------------------------------------------------------- */
 function loadProperties(){
   db.ref("properties").on("value",snap=>{
-    const props=snap.val()||{};
-    propertySelect.innerHTML="";
-
-    const keys=Object.keys(props);
+    const props = snap.val() || {};
+    propertySelect.innerHTML = "";
+    const keys = Object.keys(props);
     if(!keys.length){
-      const id="holiday-home-1";
-      db.ref("properties/"+id).set({id,name:"Holiday Home"});
+      const id = "default";
+      db.ref("properties/"+id).set({id, name:"Holiday Home"});
       return;
     }
-
     keys.forEach(id=>{
-      const o=document.createElement("option");
-      o.value=id;
-      o.textContent=props[id].name;
+      const o = document.createElement("option");
+      o.value = id;
+      o.textContent = props[id].name;
       propertySelect.appendChild(o);
     });
-
-    if(!currentPropertyId || !props[currentPropertyId])
-      currentPropertyId=keys[0];
-
-    propertySelect.value=currentPropertyId;
-    attachBookingsListener();
+    if(!currentPropertyId || !props[currentPropertyId]) currentPropertyId = keys[0];
+    propertySelect.value = currentPropertyId;
+    attachBookings();
   });
 }
 
-propertySelect.onchange=()=>{
-  currentPropertyId=propertySelect.value;
-  attachBookingsListener();
+propertySelect.onchange = () => {
+  currentPropertyId = propertySelect.value;
+  attachBookings();
 };
 
-addPropertyBtn.onclick=()=>{
-  const code=prompt("Admin code:");
-  if(code!==ADMIN_CODE)return alert("Incorrect.");
-
-  let name=prompt("New property name:");
-  if(!name)return;
-  name=name.trim();
-
-  const id=slugify(name)||("prop-"+Date.now());
-  db.ref("properties/"+id).set({id,name});
+addPropertyBtn.onclick = () => {
+  const code = prompt("Admin code:");
+  if(code !== ADMIN_CODE) return alert("Incorrect.");
+  let n = prompt("New property name:");
+  if(!n) return;
+  n = n.trim();
+  const id = slugify(n) || ("prop-" + Date.now());
+  db.ref("properties/"+id).set({id, name:n});
 };
 
-deletePropertyBtn.onclick=()=>{
-  const code=prompt("Admin code:");
-  if(code!==ADMIN_CODE)return alert("Incorrect.");
-
-  if(!currentPropertyId)return;
-  if(!confirm("Delete this property & its bookings?"))return;
-
+deletePropertyBtn.onclick = () => {
+  const code = prompt("Admin code:");
+  if(code !== ADMIN_CODE) return alert("Incorrect.");
+  if(!currentPropertyId) return;
+  if(!confirm("Delete this property and all bookings?")) return;
   db.ref("properties/"+currentPropertyId).remove();
   db.ref("bookings/"+currentPropertyId).remove();
-  currentPropertyId=null;
 };
 
-/* ------------------------------------------------------
-   MONTH/YEAR SELECTORS
------------------------------------------------------- */
+function attachBookings(){
+  if(bookingsRef) bookingsRef.off();
+  bookingsRef = db.ref("bookings/"+currentPropertyId);
+  bookingsRef.on("value",snap=>{
+    bookings = snap.val() || {};
+    if(viewMode==="month") renderCalendar();
+    else renderYear();
+  });
+}
+
+function toggleBooking(key){
+  const existing = bookings[key];
+  const ref = db.ref("bookings/"+currentPropertyId+"/"+key);
+  if(!existing){
+    ref.set({name:currentUserName});
+    return;
+  }
+  if(existing.name === currentUserName){
+    if(confirm("Cancel your booking?")) ref.remove();
+    return;
+  }
+  if(confirm(existing.name + " booked this. Replace?")){
+    ref.set({name:currentUserName});
+  }
+}
+
 function initMonthSelector(){
   MONTH_NAMES.forEach((n,i)=>{
-    const o=document.createElement("option");
-    o.value=i;
-    o.textContent=n;
+    const o = document.createElement("option");
+    o.value = i;
+    o.textContent = n;
     monthSelect.appendChild(o);
   });
-  monthSelect.value=currentMonth;
-  yearInput.value=currentYear;
-}
+  monthSelect.value = currentMonth;
+  yearInput.value = currentYear;
 
-monthSelect.onchange=()=>{
-  currentMonth=parseInt(monthSelect.value);
-  renderCalendar();
-};
-
-yearInput.onchange=()=>{
-  const y=parseInt(yearInput.value);
-  if(!isNaN(y)){
-    currentYear=y;
-    if(viewMode==="month")renderCalendar();
-    else renderYearView();
-  }
-};
-
-prevMonthBtn.onclick=()=>{
-  currentMonth--;
-  if(currentMonth<0){currentMonth=11;currentYear--;}
-  monthSelect.value=currentMonth;
-  yearInput.value=currentYear;
-  if(viewMode==="month")renderCalendar();
-  else renderYearView();
-};
-
-nextMonthBtn.onclick=()=>{
-  currentMonth++;
-  if(currentMonth>11){currentMonth=0;currentYear++;}
-  monthSelect.value=currentMonth;
-  yearInput.value=currentYear;
-  if(viewMode==="month")renderCalendar();
-  else renderYearView();
-};
-
-viewMonthBtn.onclick=()=>setView("month");
-viewYearBtn.onclick=()=>setView("year");
-
-function setView(v){
-  viewMode=v;
-  if(v==="month"){
+  monthSelect.onchange = () => {
+    currentMonth = parseInt(monthSelect.value, 10);
+    renderCalendar();
+  };
+  yearInput.onchange = () => {
+    currentYear = parseInt(yearInput.value, 10);
+    if(viewMode==="month") renderCalendar();
+    else renderYear();
+  };
+  prevMonthBtn.onclick = () => {
+    currentMonth--;
+    if(currentMonth < 0){ currentMonth = 11; currentYear--; }
+    monthSelect.value = currentMonth;
+    yearInput.value = currentYear;
+    if(viewMode==="month") renderCalendar();
+    else renderYear();
+  };
+  nextMonthBtn.onclick = () => {
+    currentMonth++;
+    if(currentMonth > 11){ currentMonth = 0; currentYear++; }
+    monthSelect.value = currentMonth;
+    yearInput.value = currentYear;
+    if(viewMode==="month") renderCalendar();
+    else renderYear();
+  };
+  viewMonthBtn.onclick = () => {
+    viewMode = "month";
     viewMonthBtn.classList.add("view-btn-active");
     viewYearBtn.classList.remove("view-btn-active");
-    monthView.style.display="block";
-    yearView.style.display="none";
+    monthView.style.display = "block";
+    yearView.style.display = "none";
     renderCalendar();
-  } else {
+  };
+  viewYearBtn.onclick = () => {
+    viewMode = "year";
     viewYearBtn.classList.add("view-btn-active");
     viewMonthBtn.classList.remove("view-btn-active");
-    monthView.style.display="none";
-    yearView.style.display="block";
-    renderYearView();
-  }
+    monthView.style.display = "none";
+    yearView.style.display = "block";
+    renderYear();
+  };
 }
 
-/* ------------------------------------------------------
-   BOOKINGS LISTENER
------------------------------------------------------- */
-function attachBookingsListener(){
-  if(bookingsRef)bookingsRef.off();
-  if(!currentPropertyId)return;
-
-  bookingsRef=db.ref("bookings/"+currentPropertyId);
-  bookingsRef.on("value",snap=>{
-    bookings=snap.val()||{};
-    if(viewMode==="month")renderCalendar();
-    else renderYearView();
-  });
-}
-
-/* ------------------------------------------------------
-   BOOKING TOGGLE
------------------------------------------------------- */
-function toggleBooking(key){
-  const existing=bookings[key];
-  const ref=db.ref("bookings/"+currentPropertyId+"/"+key);
-
-  if(!existing){
-    ref.set({name:currentUserName,timestamp:Date.now()});
-    return;
-  }
-
-  if(existing.name===currentUserName){
-    if(confirm("Cancel your booking?"))ref.remove();
-    return;
-  }
-
-  if(confirm(existing.name+" already booked this. Replace?")){
-    ref.set({name:currentUserName,timestamp:Date.now()});
-  }
-}
-
-/* ------------------------------------------------------
-   MONTH VIEW RENDER
------------------------------------------------------- */
 function renderCalendar(){
-  calendarBody.innerHTML="";
+  calendarBody.innerHTML = "";
+  const first = new Date(currentYear,currentMonth,1);
+  const start = first.getDay();
+  const days = new Date(currentYear,currentMonth+1,0).getDate();
 
-  const first=new Date(currentYear,currentMonth,1);
-  const start=first.getDay();
-  const days=new Date(currentYear,currentMonth+1,0).getDate();
-
-  let tr=document.createElement("tr");
-  for(let i=0;i<start;i++)tr.appendChild(document.createElement("td"));
+  let tr = document.createElement("tr");
+  for(let i=0;i<start;i++) tr.appendChild(document.createElement("td"));
 
   for(let d=1;d<=days;d++){
-    if(tr.children.length===7){
+    if(tr.children.length === 7){
       calendarBody.appendChild(tr);
-      tr=document.createElement("tr");
+      tr = document.createElement("tr");
     }
+    const td = document.createElement("td");
+    const btn = document.createElement("button");
+    btn.className = "day-btn";
 
-    const td=document.createElement("td");
-    const btn=document.createElement("button");
-    btn.className="day-btn";
-
-    const key=formatDateKey(currentYear,currentMonth,d);
-
-    const num=document.createElement("div");
-    num.className="day-number";
-    num.textContent=d;
+    const num = document.createElement("div");
+    num.className = "day-number";
+    num.textContent = d;
     btn.appendChild(num);
 
-    const b=bookings[key];
+    const key = formatDateKey(currentYear,currentMonth,d);
+    const b = bookings[key];
     if(b){
-      const col=userColours[b.name]?.colour||colourFromName(b.name);
-      btn.style.background=col;
-
-      const badge=document.createElement("div");
-      badge.className="booking-badge";
-      badge.textContent=b.name;
+      const col = userColours[b.name]?.colour || colourFromName(b.name);
+      btn.style.background = col;
+      const badge = document.createElement("div");
+      badge.className = "booking-badge";
+      badge.textContent = b.name;
       btn.appendChild(badge);
     }
 
-    btn.onclick=()=>toggleBooking(key);
+    btn.onclick = () => toggleBooking(key);
     td.appendChild(btn);
     tr.appendChild(td);
   }
 
-  while(tr.children.length<7)tr.appendChild(document.createElement("td"));
+  while(tr.children.length < 7) tr.appendChild(document.createElement("td"));
   calendarBody.appendChild(tr);
 }
 
-/* ------------------------------------------------------
-   YEAR VIEW RENDER
------------------------------------------------------- */
-function renderYearView(){
-  yearGrid.innerHTML="";
-
+function renderYear(){
+  yearGrid.innerHTML = "";
   for(let m=0;m<12;m++){
-    const wrap=document.createElement("div");
-    wrap.className="year-month";
+    const box = document.createElement("div");
+    box.className = "year-month";
 
-    const title=document.createElement("div");
-    title.className="year-month-title";
-    title.textContent=MONTH_NAMES[m];
-    wrap.appendChild(title);
+    const title = document.createElement("div");
+    title.className = "year-month-title";
+    title.textContent = MONTH_NAMES[m];
+    box.appendChild(title);
 
-    const table=document.createElement("table");
-    table.className="calendar-mini";
+    const table = document.createElement("table");
+    table.className = "calendar-mini";
 
-    const thead=document.createElement("thead");
-    const hr=document.createElement("tr");
+    const thead = document.createElement("thead");
+    const trh = document.createElement("tr");
     ["S","M","T","W","T","F","S"].forEach(d=>{
-      const th=document.createElement("th");
-      th.textContent=d;
-      hr.appendChild(th);
+      const th = document.createElement("th");
+      th.textContent = d;
+      trh.appendChild(th);
     });
-    thead.appendChild(hr);
+    thead.appendChild(trh);
     table.appendChild(thead);
 
-    const tbody=document.createElement("tbody");
+    const tbody = document.createElement("tbody");
+    const first = new Date(currentYear,m,1);
+    const start = first.getDay();
+    const days = new Date(currentYear,m+1,0).getDate();
 
-    const first=new Date(currentYear,m,1);
-    const start=first.getDay();
-    const days=new Date(currentYear,m+1,0).getDate();
-
-    let tr=document.createElement("tr");
-    for(let i=0;i<start;i++)tr.appendChild(document.createElement("td"));
+    let tr = document.createElement("tr");
+    for(let i=0;i<start;i++) tr.appendChild(document.createElement("td"));
 
     for(let d=1;d<=days;d++){
-      if(tr.children.length===7){
+      if(tr.children.length === 7){
         tbody.appendChild(tr);
-        tr=document.createElement("tr");
+        tr = document.createElement("tr");
       }
+      const td = document.createElement("td");
+      const btn = document.createElement("button");
+      btn.className = "day-btn";
+      btn.textContent = d;
 
-      const td=document.createElement("td");
-      const btn=document.createElement("button");
-      btn.className="day-btn";
-      btn.textContent=d;
-
-      const key=formatDateKey(currentYear,m,d);
-      const b=bookings[key];
+      const key = formatDateKey(currentYear,m,d);
+      const b = bookings[key];
       if(b){
-        const col=userColours[b.name]?.colour||colourFromName(b.name);
-        btn.style.background=col;
+        const col = userColours[b.name]?.colour || colourFromName(b.name);
+        btn.style.background = col;
       }
 
-      btn.onclick=()=>toggleBooking(key);
+      btn.onclick = () => toggleBooking(key);
       td.appendChild(btn);
       tr.appendChild(td);
     }
 
-    while(tr.children.length<7)tr.appendChild(document.createElement("td"));
+    while(tr.children.length < 7) tr.appendChild(document.createElement("td"));
     tbody.appendChild(tr);
-
     table.appendChild(tbody);
-    wrap.appendChild(table);
-    yearGrid.appendChild(wrap);
+    box.appendChild(table);
+    yearGrid.appendChild(box);
   }
 }
 
-/* ------------------------------------------------------
-   LEGEND
------------------------------------------------------- */
-function renderUserLegend(){
-  userLegend.innerHTML="";
-  const names=Object.keys(userColours).sort();
-
-  if(!names.length){
-    userLegend.textContent="Users will appear here.";
-    return;
-  }
-
+function renderLegend(){
+  userLegend.innerHTML = "";
+  const names = Object.keys(userColours).sort();
   names.forEach(n=>{
-    const col=userColours[n]?.colour||colourFromName(n);
-    const div=document.createElement("div");
-    div.className="user-legend-item";
-    div.innerHTML=
-      `<span class="user-legend-swatch" style="background:${col}"></span>${n}`;
-    userLegend.appendChild(div);
+    const col = userColours[n]?.colour || colourFromName(n);
+    const span = document.createElement("span");
+    span.className = "user-legend-item";
+    span.innerHTML = '<span class="user-legend-swatch" style="background:'+col+'"></span>' + n;
+    userLegend.appendChild(span);
   });
 }
 
-/* ------------------------------------------------------
-   INIT
------------------------------------------------------- */
 function init(){
   initUser();
   loadProperties();
   initMonthSelector();
-  setView("month");
-}
+  renderCalendar();
 
+  if ("serviceWorker" in navigator){
+    window.addEventListener("load", function(){
+      navigator.serviceWorker.register("service-worker.js").catch(console.error);
+    });
+  }
+}
 init();
 </script>
-
 </body>
 </html>
