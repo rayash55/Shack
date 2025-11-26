@@ -114,13 +114,13 @@
     #adminPanel {
       position: fixed;
       top: 0;
-      right: -220px;
-      width: 220px;
+      right: -260px;
+      width: 260px;
       height: 100%;
       background: rgba(248,250,252,0.96);
       box-shadow: -6px 0 20px rgba(0,0,0,0.4);
       transition: right 0.28s ease;
-      padding: 60px 16px 20px;
+      padding: 46px 16px 20px;
       z-index: 9999;
       font-size: 0.9rem;
     }
@@ -490,17 +490,20 @@
 <!-- SLIDE-OUT ADMIN PANEL -->
 <div id="adminPanel">
   <button id="adminCloseBtn">×</button>
+
   <h3>User options</h3>
-  <div class="admin-caption">These affect only names & colours, not bookings.</div>
-  <button id="btnChangeName">Change my name</button>
+  <div class="admin-caption">
+    Your name is saved on this device. To change it later you’ll need an admin code.
+  </div>
 
   <h3 id="adminSectionHeader" style="display:none;">Admin tools</h3>
   <div class="admin-caption" id="adminCaption" style="display:none;">
     For owner/managers only. Requires admin code.
   </div>
   <button id="btnUnlockAdmin">Unlock admin</button>
+  <button id="btnChangeName" style="display:none;">Change name</button>
+  <button id="btnAddUser" style="display:none;">Add new user (admin)</button>
   <button id="btnRenameUser" style="display:none;">Rename another user (admin)</button>
-  <!-- Delete user button (admin) -->
   <button id="btnDeleteUser" style="display:none;">Delete a user (admin)</button>
 </div>
 
@@ -539,6 +542,7 @@ const menuBtn = document.getElementById("menuBtn");
 const adminPanel = document.getElementById("adminPanel");
 const adminCloseBtn = document.getElementById("adminCloseBtn");
 const btnChangeName = document.getElementById("btnChangeName");
+const btnAddUser   = document.getElementById("btnAddUser");
 const btnRenameUser = document.getElementById("btnRenameUser");
 const btnUnlockAdmin = document.getElementById("btnUnlockAdmin");
 const adminSectionHeader = document.getElementById("adminSectionHeader");
@@ -590,6 +594,19 @@ function askForName(){
   while(!n){
     n = prompt("Enter your name:") || "Guest";
     n = n.trim();
+    if (!n) continue;
+
+    if (n === "Guest") {
+      const proceed = confirm(
+        'If you continue as "Guest", this name will be locked on this device.\n\n' +
+        'You will need an admin code later to change it.\n\n' +
+        'Continue as "Guest"?'
+      );
+      if (!proceed) {
+        n = "";
+        continue;
+      }
+    }
   }
   currentUserName = n;
   localStorage.setItem("hh_user_name", n);
@@ -626,14 +643,16 @@ btnUnlockAdmin.onclick = () => {
     alert("Access denied");
     return;
   }
-  btnRenameUser.style.display = "block";
-  btnDeleteUser.style.display = "block";
   adminSectionHeader.style.display = "block";
   adminCaption.style.display = "block";
+  btnChangeName.style.display = "block";
+  btnAddUser.style.display = "block";
+  btnRenameUser.style.display = "block";
+  btnDeleteUser.style.display = "block";
   alert("Admin tools unlocked");
 };
 
-/* CHANGE MY NAME – NOW REQUIRES ADMIN CODE */
+/* CHANGE NAME (ADMIN ONLY) */
 btnChangeName.onclick = async () => {
   const code = prompt("Admin code required to change name:");
   if (code !== ADMIN_CODE) {
@@ -646,7 +665,6 @@ btnChangeName.onclick = async () => {
   const trimmed = newName.trim();
   if (!trimmed) return;
 
-  // Optional: warn if name already exists in /users
   const existingSnap = await db.ref("users/" + trimmed).once("value");
   if (existingSnap.exists() && trimmed !== currentUserName) {
     const proceed = confirm(
@@ -661,6 +679,29 @@ btnChangeName.onclick = async () => {
   ensureUserColour(currentUserName);
   updateUserUI();
   adminPanel.classList.remove("open");
+};
+
+/* ADD NEW USER (ADMIN) */
+btnAddUser.onclick = async () => {
+  const name = prompt("Enter new user name to add:");
+  if (!name) return;
+  const trimmed = name.trim();
+  if (!trimmed) return;
+
+  if (trimmed === "Guest") {
+    alert('You can’t add "Guest" as a managed user.');
+    return;
+  }
+
+  const userRef = db.ref("users/" + trimmed);
+  const snap = await userRef.once("value");
+  if (snap.exists()) {
+    alert('User "' + trimmed + '" already exists.');
+    return;
+  }
+
+  await userRef.set({ colour: colourFromName(trimmed) });
+  alert('User "' + trimmed + '" has been created.');
 };
 
 /* RENAME ANOTHER USER (ADMIN) */
@@ -718,7 +759,6 @@ btnDeleteUser.onclick = async () => {
     return;
   }
 
-  // Remove all bookings made by this user across all properties
   const root = db.ref("bookings");
   const snapshot = await root.once("value");
   snapshot.forEach(propSnap => {
@@ -730,10 +770,8 @@ btnDeleteUser.onclick = async () => {
     });
   });
 
-  // Remove user profile (colour etc.)
   await userRef.remove();
 
-  // If this was the current device user, fall back to "Guest"
   if(currentUserName === delName){
     currentUserName = "Guest";
     localStorage.setItem("hh_user_name", currentUserName);
