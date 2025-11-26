@@ -54,6 +54,11 @@
       align-items: center;
       margin-bottom: 12px;
       font-size: 0.85rem;
+      gap: 6px;
+    }
+    .top-bar-right {
+      display: flex;
+      gap: 4px;
     }
     .colour-preview {
       width: 14px;
@@ -205,6 +210,9 @@
       margin-right: 4px;
       border: 1px solid #666;
     }
+    button {
+      font-family: inherit;
+    }
   </style>
 </head>
 <body>
@@ -215,7 +223,10 @@
 
   <div class="top-bar">
     <div>You: <span id="userNameLabel"></span> <span id="userColourPreview" class="colour-preview"></span></div>
-    <button id="changeNameBtn">Change</button>
+    <div class="top-bar-right">
+      <button id="changeNameBtn">Change</button>
+      <button id="renameUserBtn">Rename user</button>
+    </div>
   </div>
 
   <div class="property-bar">
@@ -293,6 +304,7 @@ const userNameLabel = document.getElementById("userNameLabel");
 const userColourPreview = document.getElementById("userColourPreview");
 const welcomeMessage = document.getElementById("welcomeMessage");
 const changeNameBtn = document.getElementById("changeNameBtn");
+const renameUserBtn = document.getElementById("renameUserBtn");
 const propertySelect = document.getElementById("propertySelect");
 const addPropertyBtn = document.getElementById("addPropertyBtn");
 const deletePropertyBtn = document.getElementById("deletePropertyBtn");
@@ -359,9 +371,59 @@ function updateUserUI(){
 
 changeNameBtn.onclick = () => {
   const code = prompt("Admin code:");
-  if(code !== ADMIN_CODE) return alert("Incorrect.");
+  if(code !== ADMIN_CODE) return alert("Access denied");
   localStorage.removeItem("hh_user_name");
   askForName();
+};
+
+// NEW: Rename user (admin only)
+renameUserBtn.onclick = async () => {
+  const code = prompt("Admin code?");
+  if(code !== ADMIN_CODE){
+    alert("Access denied");
+    return;
+  }
+
+  const oldName = prompt("Enter the CURRENT user name (case sensitive):");
+  if(!oldName) return;
+
+  const newName = prompt("Enter the NEW user name:");
+  if(!newName) return;
+
+  const userRef = db.ref("users/" + oldName);
+  const snap = await userRef.once("value");
+  if(!snap.exists()){
+    alert("User not found");
+    return;
+  }
+
+  const userData = snap.val();
+  await db.ref("users/" + newName).set(userData);
+
+  // Update all bookings that belong to oldName
+  const bookingsRoot = db.ref("bookings");
+  bookingsRoot.once("value", snapshot => {
+    snapshot.forEach(propSnap => {
+      propSnap.forEach(dateSnap => {
+        const val = dateSnap.val();
+        if(val && val.name === oldName){
+          dateSnap.ref.update({ name: newName });
+        }
+      });
+    });
+  });
+
+  // Remove old user entry
+  await userRef.remove();
+
+  // Update local device if this user is current
+  if(currentUserName === oldName){
+    currentUserName = newName;
+    localStorage.setItem("hh_user_name", newName);
+    updateUserUI();
+  }
+
+  alert('User renamed from "' + oldName + '" to "' + newName + '".');
 };
 
 db.ref("users").on("value",snap=>{
@@ -401,7 +463,7 @@ propertySelect.onchange = () => {
 
 addPropertyBtn.onclick = () => {
   const code = prompt("Admin code:");
-  if(code !== ADMIN_CODE) return alert("Incorrect.");
+  if(code !== ADMIN_CODE) return alert("Access denied");
   let n = prompt("New property name:");
   if(!n) return;
   n = n.trim();
@@ -411,7 +473,7 @@ addPropertyBtn.onclick = () => {
 
 deletePropertyBtn.onclick = () => {
   const code = prompt("Admin code:");
-  if(code !== ADMIN_CODE) return alert("Incorrect.");
+  if(code !== ADMIN_CODE) return alert("Access denied");
   if(!currentPropertyId) return;
   if(!confirm("Delete this property and all bookings?")) return;
   db.ref("properties/"+currentPropertyId).remove();
