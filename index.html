@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Ash Shack Booking</title>
+  <title>Ash Shack Usage</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#1b4d6b">
 
@@ -425,7 +425,7 @@
   <!-- HEADER CARD -->
   <div class="card card-compact">
     <div class="card-header">
-      <h1>Ash Shack Booking</h1>
+      <h1>Ash Shack Usage</h1>
       <div class="subtitle">Tap a day to book it.</div>
     </div>
     <div class="top-bar" style="margin-top:6px;">
@@ -534,6 +534,7 @@ let userColours = {};
 let currentYear = new Date().getFullYear();
 let currentMonth = new Date().getMonth();
 let viewMode = "month";
+let isAdminUnlocked = false; // NEW: track admin mode
 
 /* DOM */
 const userNameLabel = document.getElementById("userNameLabel");
@@ -643,12 +644,14 @@ btnUnlockAdmin.onclick = () => {
     alert("Access denied");
     return;
   }
+  isAdminUnlocked = true; // admin mode ON
   adminSectionHeader.style.display = "block";
   adminCaption.style.display = "block";
   btnChangeName.style.display = "block";
   btnAddUser.style.display = "block";
   btnRenameUser.style.display = "block";
   btnDeleteUser.style.display = "block";
+  btnUnlockAdmin.style.display = "none"; // hide once unlocked
   alert("Admin tools unlocked");
 };
 
@@ -864,19 +867,47 @@ function attachBookings(){
     else renderYear();
   });
 }
+
 function toggleBooking(key){
   const existing = bookings[key];
   const ref = db.ref("bookings/"+currentPropertyId+"/"+key);
+
+  // No booking yet -> anyone can create their own
   if(!existing){
     ref.set({name:currentUserName});
     return;
   }
-  if(existing.name === currentUserName){
-    if(confirm("Cancel your booking?")) ref.remove();
+
+  const isOwner = existing.name === currentUserName;
+
+  // Only owner can change their booking, unless admin is unlocked
+  if(!isOwner && !isAdminUnlocked){
+    alert(existing.name + " has booked this day. Only they or an admin can change it.");
     return;
   }
-  if(confirm(existing.name + " booked this. Replace?")){
-    ref.set({name:currentUserName});
+
+  // Owner (not admin) – can cancel their own booking
+  if(isOwner && !isAdminUnlocked){
+    if(confirm("Cancel your booking?")){
+      ref.remove();
+    }
+    return;
+  }
+
+  // Admin unlocked – can clear or take over any booking
+  if(isAdminUnlocked){
+    const choice = confirm(
+      existing.name +
+      " has this booked.\n\n" +
+      "OK = Clear this booking\n" +
+      "Cancel = Change it to you (" + currentUserName + ")."
+    );
+    if(choice){
+      ref.remove();
+    } else {
+      ref.set({name:currentUserName});
+    }
+    return;
   }
 }
 
