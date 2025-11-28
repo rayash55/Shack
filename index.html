@@ -534,7 +534,7 @@ let userColours = {};
 let currentYear = new Date().getFullYear();
 let currentMonth = new Date().getMonth();
 let viewMode = "month";
-let isAdminUnlocked = false; // NEW: track admin mode
+let isAdminUnlocked = false; // track admin mode
 
 /* DOM */
 const userNameLabel = document.getElementById("userNameLabel");
@@ -633,12 +633,34 @@ function updateUserUI(){
 /* ADMIN PANEL */
 menuBtn.onclick = () => {
   adminPanel.classList.add("open");
+
+  if (isAdminUnlocked) {
+    // Admin already unlocked – show tools, hide unlock button
+    adminSectionHeader.style.display = "block";
+    adminCaption.style.display = "block";
+    btnChangeName.style.display = "block";
+    btnAddUser.style.display = "block";
+    btnRenameUser.style.display = "block";
+    btnDeleteUser.style.display = "block";
+    btnUnlockAdmin.style.display = "none";
+  } else {
+    // Not unlocked yet – hide tools, show unlock button
+    adminSectionHeader.style.display = "none";
+    adminCaption.style.display = "none";
+    btnChangeName.style.display = "none";
+    btnAddUser.style.display = "none";
+    btnRenameUser.style.display = "none";
+    btnDeleteUser.style.display = "none";
+    btnUnlockAdmin.style.display = "block";
+  }
 };
+
 adminCloseBtn.onclick = () => {
   adminPanel.classList.remove("open");
 };
 
 btnUnlockAdmin.onclick = () => {
+  if (isAdminUnlocked) return; // already unlocked, do nothing
   const code = prompt("Admin code?");
   if(code !== ADMIN_CODE){
     alert("Access denied");
@@ -872,7 +894,7 @@ function toggleBooking(key){
   const existing = bookings[key];
   const ref = db.ref("bookings/"+currentPropertyId+"/"+key);
 
-  // No booking yet -> anyone can create their own
+  // No booking -> anyone can create one
   if(!existing){
     ref.set({name:currentUserName});
     return;
@@ -880,13 +902,13 @@ function toggleBooking(key){
 
   const isOwner = existing.name === currentUserName;
 
-  // Only owner can change their booking, unless admin is unlocked
+  // Not owner & not admin: cannot change
   if(!isOwner && !isAdminUnlocked){
     alert(existing.name + " has booked this day. Only they or an admin can change it.");
     return;
   }
 
-  // Owner (not admin) – can cancel their own booking
+  // Owner, not admin – they can cancel their own booking
   if(isOwner && !isAdminUnlocked){
     if(confirm("Cancel your booking?")){
       ref.remove();
