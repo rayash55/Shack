@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Ash Shack Usa</title>
+  <title>Ash Shack Use</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#1b4d6b">
 
@@ -455,23 +455,25 @@
   </div>
 </div>
 
+<!-- Simplified admin panel -->
 <div id="adminPanel">
   <button id="adminCloseBtn">×</button>
 
-  <h3>User options</h3>
+  <h3>User & admin options</h3>
   <div class="admin-caption">
-    Your name is saved on this device. To change it later you’ll need an admin code.
+    Your name is saved on this device. Admin code is needed for any changes.
   </div>
 
-  <h3 id="adminSectionHeader" style="display:none;">Admin tools</h3>
-  <div class="admin-caption" id="adminCaption" style="display:none;">
-    For owner/managers only. Requires admin code.
+  <button id="btnChangeName">Change this device name (admin)</button>
+
+  <h3>Manage users</h3>
+  <div class="admin-caption">
+    Admin-only tools to manage names and bookings.
   </div>
-  <button id="btnUnlockAdmin">Unlock admin</button>
-  <button id="btnChangeName" style="display:none;">Change name</button>
-  <button id="btnAddUser" style="display:none;">Add new user (admin)</button>
-  <button id="btnRenameUser" style="display:none;">Rename another user (admin)</button>
-  <button id="btnDeleteUser" style="display:none;">Delete a user (admin)</button>
+
+  <button id="btnAddUser">Add new user (admin)</button>
+  <button id="btnRenameUser">Rename a user (admin)</button>
+  <button id="btnDeleteUser">Delete a user & bookings (admin)</button>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -500,7 +502,6 @@ let userColours = {};
 let currentYear = new Date().getFullYear();
 let currentMonth = new Date().getMonth();
 let viewMode = "month";
-let isAdminUnlocked = false;
 
 /* DOM */
 const userNameLabel = document.getElementById("userNameLabel");
@@ -511,9 +512,6 @@ const adminCloseBtn = document.getElementById("adminCloseBtn");
 const btnChangeName = document.getElementById("btnChangeName");
 const btnAddUser   = document.getElementById("btnAddUser");
 const btnRenameUser = document.getElementById("btnRenameUser");
-const btnUnlockAdmin = document.getElementById("btnUnlockAdmin");
-const adminSectionHeader = document.getElementById("adminSectionHeader");
-const adminCaption = document.getElementById("adminCaption");
 const btnDeleteUser = document.getElementById("btnDeleteUser");
 const guestNotice = document.getElementById("guestNotice");
 
@@ -604,51 +602,14 @@ function updateUserUI(){
 /* ADMIN PANEL */
 menuBtn.onclick = () => {
   adminPanel.classList.add("open");
-
-  if (isAdminUnlocked) {
-    adminSectionHeader.style.display = "block";
-    adminCaption.style.display = "block";
-    btnChangeName.style.display = "block";
-    btnAddUser.style.display = "block";
-    btnRenameUser.style.display = "block";
-    btnDeleteUser.style.display = "block";
-    btnUnlockAdmin.style.display = "none";
-  } else {
-    adminSectionHeader.style.display = "none";
-    adminCaption.style.display = "none";
-    btnChangeName.style.display = "none";
-    btnAddUser.style.display = "none";
-    btnRenameUser.style.display = "none";
-    btnDeleteUser.style.display = "none";
-    btnUnlockAdmin.style.display = "block";
-  }
 };
 
 adminCloseBtn.onclick = () => {
   adminPanel.classList.remove("open");
-  // End admin session when panel is closed
-  isAdminUnlocked = false;
-};
-
-btnUnlockAdmin.onclick = () => {
-  if (isAdminUnlocked) return;
-  const code = prompt("Admin code?");
-  if(code !== ADMIN_CODE){
-    alert("Access denied");
-    return;
-  }
-  isAdminUnlocked = true;
-  adminSectionHeader.style.display = "block";
-  adminCaption.style.display = "block";
-  btnChangeName.style.display = "block";
-  btnAddUser.style.display = "block";
-  btnRenameUser.style.display = "block";
-  btnDeleteUser.style.display = "block";
-  btnUnlockAdmin.style.display = "none";
 };
 
 btnChangeName.onclick = async () => {
-  const code = prompt("Admin code required to change name:");
+  const code = prompt("Admin code required to change this device name:");
   if (code !== ADMIN_CODE) {
     alert("Access denied. Ask the owner/manager if this needs to be changed.");
     return;
@@ -673,10 +634,15 @@ btnChangeName.onclick = async () => {
   ensureUserColour(currentUserName);
   updateUserUI();
   adminPanel.classList.remove("open");
-  isAdminUnlocked = false;
 };
 
 btnAddUser.onclick = async () => {
+  const code = prompt("Admin code required to add a new user:");
+  if (code !== ADMIN_CODE) {
+    alert("Access denied.");
+    return;
+  }
+
   const name = prompt("Enter new user name to add:");
   if (!name) return;
   const trimmed = name.trim();
@@ -699,10 +665,16 @@ btnAddUser.onclick = async () => {
 };
 
 btnRenameUser.onclick = async () => {
+  const code = prompt("Admin code required to rename a user:");
+  if (code !== ADMIN_CODE) {
+    alert("Access denied.");
+    return;
+  }
+
   const oldName = prompt("Enter CURRENT user name (exact):");
-  if(!oldName) return;
+  if (!oldName) return;
   const newName = prompt("Enter NEW user name:");
-  if(!newName) return;
+  if (!newName) return;
 
   const userRef = db.ref("users/"+oldName);
   const snap = await userRef.once("value");
@@ -733,10 +705,15 @@ btnRenameUser.onclick = async () => {
   }
   alert('User renamed from "'+oldName+'" to "'+newName+'".');
   adminPanel.classList.remove("open");
-  isAdminUnlocked = false;
 };
 
 btnDeleteUser.onclick = async () => {
+  const code = prompt("Admin code required to delete a user:");
+  if (code !== ADMIN_CODE) {
+    alert("Access denied.");
+    return;
+  }
+
   const delName = prompt("Enter user name to DELETE (exact):");
   if(!delName) return;
 
@@ -774,7 +751,6 @@ btnDeleteUser.onclick = async () => {
 
   alert('User "' + delName + '" and their bookings have been deleted from this system.');
   adminPanel.classList.remove("open");
-  isAdminUnlocked = false;
 };
 
 /* USERS / LEGEND */
@@ -863,7 +839,7 @@ function toggleBooking(key){
   const existing = bookings[key];
   const ref = db.ref("bookings/"+currentPropertyId+"/"+key);
 
-  // Block Guest from creating or changing bookings (except cleaning up old Guest bookings)
+  // Guest: view-only, except can clean up old Guest bookings
   if (currentUserName === "Guest") {
     if (existing && existing.name === "Guest") {
       if (confirm("Remove this old Guest booking?")) {
@@ -875,7 +851,7 @@ function toggleBooking(key){
     return;
   }
 
-  // No booking: anyone (non-Guest) can create one
+  // No booking: non-Guest can create
   if(!existing){
     ref.set({name: currentUserName});
     return;
@@ -883,7 +859,7 @@ function toggleBooking(key){
 
   const isOwner = existing.name === currentUserName;
 
-  // Owner: can cancel their own booking without admin code
+  // Owner can cancel their own booking
   if(isOwner){
     if(confirm("Cancel your booking?")){
       ref.remove();
@@ -891,7 +867,7 @@ function toggleBooking(key){
     return;
   }
 
-  // Not owner: require admin code to change
+  // Others: admin code required to change
   const code = prompt(
     existing.name +
     " has booked this day.\n\n" +
@@ -966,56 +942,56 @@ function renderYear(){
 
     const title = document.createElement("div");
     title.className = "year-month-title";
-      title.textContent = MONTH_NAMES[m];
-      box.appendChild(title);
+    title.textContent = MONTH_NAMES[m];
+    box.appendChild(title);
 
-      const table = document.createElement("table");
-      table.className = "calendar-mini";
+    const table = document.createElement("table");
+    table.className = "calendar-mini";
 
-      const thead = document.createElement("thead");
-      const trh = document.createElement("tr");
-      ["S","M","T","W","T","F","S"].forEach(t=>{
-        const th = document.createElement("th");
-        th.textContent = t;
-        trh.appendChild(th);
-      });
-      thead.appendChild(trh);
-      table.appendChild(thead);
+    const thead = document.createElement("thead");
+    const trh = document.createElement("tr");
+    ["S","M","T","W","T","F","S"].forEach(t=>{
+      const th = document.createElement("th");
+      th.textContent = t;
+      trh.appendChild(th);
+    });
+    thead.appendChild(trh);
+    table.appendChild(thead);
 
-      const tbody = document.createElement("tbody");
-      const first = new Date(currentYear,m,1);
-      const start = first.getDay();
-      const days = new Date(currentYear,m+1,0).getDate();
+    const tbody = document.createElement("tbody");
+    const first = new Date(currentYear,m,1);
+    const start = first.getDay();
+    const days = new Date(currentYear,m+1,0).getDate();
 
-      let tr = document.createElement("tr");
-      for(let i=0;i<start;i++) tr.appendChild(document.createElement("td"));
+    let tr = document.createElement("tr");
+    for(let i=0;i<start;i++) tr.appendChild(document.createElement("td"));
 
-      for(let d=1;d<=days;d++){
-        if(tr.children.length===7){
-          tbody.appendChild(tr);
-          tr = document.createElement("tr");
-        }
-        const td = document.createElement("td");
-        const btn = document.createElement("button");
-        btn.className = "day-btn";
-        btn.textContent = d;
-
-        const key = formatDateKey(currentYear,m,d);
-        const b = bookings[key];
-        if(b){
-          const col = userColours[b.name]?.colour || colourFromName(b.name);
-          btn.style.background = col;
-        }
-        btn.onclick = () => toggleBooking(key);
-        td.appendChild(btn);
-        tr.appendChild(td);
+    for(let d=1;d<=days;d++){
+      if(tr.children.length===7){
+        tbody.appendChild(tr);
+        tr = document.createElement("tr");
       }
-      while(tr.children.length<7) tr.appendChild(document.createElement("td"));
-      tbody.appendChild(tr);
-      table.appendChild(tbody);
-      box.appendChild(table);
-      yearGrid.appendChild(box);
+      const td = document.createElement("td");
+      const btn = document.createElement("button");
+      btn.className = "day-btn";
+      btn.textContent = d;
+
+      const key = formatDateKey(currentYear,m,d);
+      const b = bookings[key];
+      if(b){
+        const col = userColours[b.name]?.colour || colourFromName(b.name);
+        btn.style.background = col;
+      }
+      btn.onclick = () => toggleBooking(key);
+      td.appendChild(btn);
+      tr.appendChild(td);
     }
+    while(tr.children.length<7) tr.appendChild(document.createElement("td"));
+    tbody.appendChild(tr);
+    table.appendChild(tbody);
+    box.appendChild(table);
+    yearGrid.appendChild(box);
+  }
 }
 
 /* MONTH/YEAR SELECTOR */
