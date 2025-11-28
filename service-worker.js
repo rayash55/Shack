@@ -12,4 +12,4 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(self.clients.claim());
 });
 
-console.log('Ash Shack Usage service worker active (instant update mode).');
+console.log('Ash Shack Use service worker active (instant update mode).');
