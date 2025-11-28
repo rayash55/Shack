@@ -147,7 +147,7 @@
       position: absolute;
       top: 10px;
       left: 10px;
-      background: #020617; /* very dark blue/near black */
+      background: #e5e7eb;
       color: #000000;
       border-radius: 999px;
       width: 90px;
@@ -164,7 +164,7 @@
     #adminCloseBtn:hover {
       transform: translateY(-1px);
       box-shadow: 0 6px 14px rgba(15,23,42,0.5);
-      background: #020617;
+      background: #cbd5e1;
     }
 
     #adminCloseBtn:active {
@@ -470,6 +470,70 @@
 
     button { font-family: inherit; }
 
+    /* Glass-style popup overlay */
+    #popupOverlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15,23,42,0.35);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 10000;
+    }
+
+    #popupCard {
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.7);
+      padding: 14px 16px 12px;
+      max-width: 320px;
+      width: 88%;
+      box-shadow: 0 16px 38px rgba(0,0,0,0.35);
+      font-size: 0.9rem;
+    }
+
+    #popupMessage {
+      margin-bottom: 10px;
+      white-space: pre-wrap;
+    }
+
+    #popupInput {
+      width: 100%;
+      padding: 7px 9px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      font-size: 0.88rem;
+    }
+
+    #popupButtons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    #popupOk, #popupCancel {
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid #0f172a;
+      font-size: 0.8rem;
+      cursor: pointer;
+      box-shadow: 0 3px 8px rgba(15,23,42,0.25);
+      background: linear-gradient(135deg, #0f172a, #1f2937);
+      color: #f9fafb;
+    }
+
+    #popupCancel {
+      border-color: #cbd5e1;
+      background: linear-gradient(135deg, #e5e7eb, #f9fafb);
+      color: #111827;
+      box-shadow: 0 2px 6px rgba(15,23,42,0.15);
+    }
+
     @media (max-width: 360px) {
       .app { padding: 8px; }
       .card { border-radius: 18px; }
@@ -563,6 +627,18 @@
   <button id="btnDeleteUser">Delete a user & bookings (admin)</button>
 </div>
 
+<!-- Glass-style popup (replaces alert/confirm/prompt) -->
+<div id="popupOverlay">
+  <div id="popupCard">
+    <div id="popupMessage"></div>
+    <input id="popupInput" />
+    <div id="popupButtons">
+      <button id="popupCancel">Cancel</button>
+      <button id="popupOk">OK</button>
+    </div>
+  </div>
+</div>
+
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
@@ -617,6 +693,13 @@ const calendarBody = document.getElementById("calendarBody");
 const yearGrid = document.getElementById("yearGrid");
 const userLegend = document.getElementById("userLegend");
 
+/* Popup DOM */
+const popupOverlay = document.getElementById("popupOverlay");
+const popupMessage = document.getElementById("popupMessage");
+const popupInput   = document.getElementById("popupInput");
+const popupOk      = document.getElementById("popupOk");
+const popupCancel  = document.getElementById("popupCancel");
+
 /* HELPERS */
 const MONTH_NAMES = [
   "January","February","March","April","May","June",
@@ -641,16 +724,68 @@ function ensureUserColour(name){
   });
 }
 
+/* Glass-style popup system */
+function showPopup({ message, showCancel = false, input = false, defaultValue = "", okText = "OK", cancelText = "Cancel" }) {
+  return new Promise(resolve => {
+    popupMessage.textContent = message;
+    popupInput.style.display = input ? "block" : "none";
+    popupInput.value = defaultValue || "";
+    popupOk.textContent = okText;
+    popupCancel.textContent = cancelText;
+    popupCancel.style.display = showCancel ? "inline-block" : "none";
+
+    function cleanup(value) {
+      popupOverlay.style.display = "none";
+      popupOk.onclick = null;
+      popupCancel.onclick = null;
+      resolve(value);
+    }
+
+    popupOk.onclick = () => {
+      const value = input ? popupInput.value : true;
+      cleanup(value);
+    };
+    popupCancel.onclick = () => {
+      const value = input ? null : false;
+      cleanup(value);
+    };
+
+    popupOverlay.style.display = "flex";
+    if (input) {
+      popupInput.focus();
+      popupInput.select();
+    }
+  });
+}
+
+function customAlert(message) {
+  return showPopup({ message, showCancel: false, input: false });
+}
+
+function customConfirm(message) {
+  return showPopup({ message, showCancel: true, input: false });
+}
+
+function customPrompt(message, defaultValue = "") {
+  return showPopup({ message, showCancel: true, input: true, defaultValue });
+}
+
 /* USER / PROFILE */
-function askForName(){
+async function askForName(){
   let n = "";
   while(!n){
-    n = prompt("Enter your name:") || "Guest";
-    n = n.trim();
-    if (!n) continue;
+    const input = await customPrompt("Enter your name:", "Guest");
+    if (input === null) {
+      // User cancelled; just loop again
+      continue;
+    }
+    n = input.trim();
+    if (!n) {
+      n = "Guest";
+    }
 
     if (n === "Guest") {
-      const proceed = confirm(
+      const proceed = await customConfirm(
         'If you continue as "Guest", you will NOT be able to make bookings.\n\n' +
         'You will need an admin code later to change this name.\n\n' +
         'Continue as "Guest"?'
@@ -666,16 +801,18 @@ function askForName(){
   ensureUserColour(n);
   updateUserUI();
 }
-function initUser(){
+
+async function initUser(){
   const stored = localStorage.getItem("hh_user_name");
   if(stored){
     currentUserName = stored;
     ensureUserColour(stored);
   } else {
-    askForName();
+    await askForName();
   }
   updateUserUI();
 }
+
 function updateUserUI(){
   userNameLabel.textContent = currentUserName || "";
   const col = userColours[currentUserName]?.colour || colourFromName(currentUserName || "");
@@ -696,20 +833,21 @@ adminCloseBtn.onclick = () => {
 };
 
 btnChangeName.onclick = async () => {
-  const code = prompt("Admin code required to change this device name:");
+  const code = await customPrompt("Admin code required to change this device name:");
+  if (code === null || !code.trim()) return;
   if (code !== ADMIN_CODE) {
-    alert("Access denied. Ask the owner/manager if this needs to be changed.");
+    await customAlert("Access denied. Ask the owner/manager if this needs to be changed.");
     return;
   }
 
-  const newName = prompt("Enter new name for this device:");
+  const newName = await customPrompt("Enter new name for this device:", currentUserName || "");
   if (!newName) return;
   const trimmed = newName.trim();
   if (!trimmed) return;
 
   const existingSnap = await db.ref("users/" + trimmed).once("value");
   if (existingSnap.exists() && trimmed !== currentUserName) {
-    const proceed = confirm(
+    const proceed = await customConfirm(
       'The name "' + trimmed + '" is already registered.\n\n' +
       "Use this name anyway? (This will NOT move existing bookings.)"
     );
@@ -724,49 +862,51 @@ btnChangeName.onclick = async () => {
 };
 
 btnAddUser.onclick = async () => {
-  const code = prompt("Admin code required to add a new user:");
+  const code = await customPrompt("Admin code required to add a new user:");
+  if (code === null || !code.trim()) return;
   if (code !== ADMIN_CODE) {
-    alert("Access denied.");
+    await customAlert("Access denied.");
     return;
   }
 
-  const name = prompt("Enter new user name to add:");
+  const name = await customPrompt("Enter new user name to add:");
   if (!name) return;
   const trimmed = name.trim();
   if (!trimmed) return;
 
   if (trimmed === "Guest") {
-    alert('You can’t add "Guest" as a managed user.');
+    await customAlert('You can’t add "Guest" as a managed user.');
     return;
   }
 
   const userRef = db.ref("users/" + trimmed);
   const snap = await userRef.once("value");
   if (snap.exists()) {
-    alert('User "' + trimmed + '" already exists.');
+    await customAlert('User "' + trimmed + '" already exists.');
     return;
   }
 
   await userRef.set({ colour: colourFromName(trimmed) });
-  alert('User "' + trimmed + '" has been created.');
+  await customAlert('User "' + trimmed + '" has been created.');
 };
 
 btnRenameUser.onclick = async () => {
-  const code = prompt("Admin code required to rename a user:");
+  const code = await customPrompt("Admin code required to rename a user:");
+  if (code === null || !code.trim()) return;
   if (code !== ADMIN_CODE) {
-    alert("Access denied.");
+    await customAlert("Access denied.");
     return;
   }
 
-  const oldName = prompt("Enter CURRENT user name (exact):");
+  const oldName = await customPrompt("Enter CURRENT user name (exact):");
   if (!oldName) return;
-  const newName = prompt("Enter NEW user name:");
+  const newName = await customPrompt("Enter NEW user name:");
   if (!newName) return;
 
   const userRef = db.ref("users/"+oldName);
   const snap = await userRef.once("value");
   if(!snap.exists()){
-    alert("User not found");
+    await customAlert("User not found.");
     return;
   }
   const data = snap.val();
@@ -790,21 +930,22 @@ btnRenameUser.onclick = async () => {
     localStorage.setItem("hh_user_name", newName);
     updateUserUI();
   }
-  alert('User renamed from "'+oldName+'" to "'+newName+'".');
+  await customAlert('User renamed from "'+oldName+'" to "'+newName+'".');
   adminPanel.classList.remove("open");
 };
 
 btnDeleteUser.onclick = async () => {
-  const code = prompt("Admin code required to delete a user:");
+  const code = await customPrompt("Admin code required to delete a user:");
+  if (code === null || !code.trim()) return;
   if (code !== ADMIN_CODE) {
-    alert("Access denied.");
+    await customAlert("Access denied.");
     return;
   }
 
-  const delName = prompt("Enter user name to DELETE (exact):");
+  const delName = await customPrompt("Enter user name to DELETE (exact):");
   if(!delName) return;
 
-  const confirmDelete = confirm(
+  const confirmDelete = await customConfirm(
     'Delete user "' + delName + '" and all of their bookings?'
   );
   if(!confirmDelete) return;
@@ -812,7 +953,7 @@ btnDeleteUser.onclick = async () => {
   const userRef = db.ref("users/" + delName);
   const snap = await userRef.once("value");
   if(!snap.exists()){
-    alert("User not found");
+    await customAlert("User not found.");
     return;
   }
 
@@ -836,7 +977,7 @@ btnDeleteUser.onclick = async () => {
     updateUserUI();
   }
 
-  alert('User "' + delName + '" and their bookings have been deleted from this system.');
+  await customAlert('User "' + delName + '" and their bookings have been deleted from this system.');
   adminPanel.classList.remove("open");
 };
 
@@ -887,26 +1028,32 @@ propertySelect.onchange = () => {
   currentPropertyId = propertySelect.value;
   attachBookings();
 };
-addPropertyBtn.onclick = () => {
-  const code = prompt("Admin code?");
+
+addPropertyBtn.onclick = async () => {
+  const code = await customPrompt("Admin code?");
+  if (code === null || !code.trim()) return;
   if(code !== ADMIN_CODE){
-    alert("Access denied");
+    await customAlert("Access denied.");
     return;
   }
-  let n = prompt("New property name:");
+  let n = await customPrompt("New property name:");
   if(!n) return;
   n = n.trim();
+  if(!n) return;
   const id = slugify(n) || ("prop-"+Date.now());
   db.ref("properties/"+id).set({id, name:n});
 };
-deletePropertyBtn.onclick = () => {
-  const code = prompt("Admin code?");
+
+deletePropertyBtn.onclick = async () => {
+  const code = await customPrompt("Admin code?");
+  if (code === null || !code.trim()) return;
   if(code !== ADMIN_CODE){
-    alert("Access denied");
+    await customAlert("Access denied.");
     return;
   }
   if(!currentPropertyId) return;
-  if(!confirm("Delete this property and all bookings?")) return;
+  const ok = await customConfirm("Delete this property and all bookings?");
+  if(!ok) return;
   db.ref("properties/"+currentPropertyId).remove();
   db.ref("bookings/"+currentPropertyId).remove();
 };
@@ -922,18 +1069,19 @@ function attachBookings(){
   });
 }
 
-function toggleBooking(key){
+async function toggleBooking(key){
   const existing = bookings[key];
   const ref = db.ref("bookings/"+currentPropertyId+"/"+key);
 
   // Guest: view-only, except can clean up old Guest bookings
   if (currentUserName === "Guest") {
     if (existing && existing.name === "Guest") {
-      if (confirm("Remove this old Guest booking?")) {
+      const ok = await customConfirm("Remove this old Guest booking?");
+      if (ok) {
         ref.remove();
       }
     } else {
-      alert("Guests can only view bookings - contact admin for name to make bookings");
+      await customAlert("Guests can only view bookings - contact admin for name to make bookings");
     }
     return;
   }
@@ -948,25 +1096,26 @@ function toggleBooking(key){
 
   // Owner can cancel their own booking
   if(isOwner){
-    if(confirm("Cancel your booking?")){
+    const ok = await customConfirm("Cancel your booking?");
+    if(ok){
       ref.remove();
     }
     return;
   }
 
   // Others: admin code required to change
-  const code = prompt(
+  const code = await customPrompt(
     existing.name +
     " has booked this day.\n\n" +
     "Admin code is required to change this booking."
   );
-  if(code !== ADMIN_CODE){
-    alert("Access denied. Only the person who booked or an admin can change this.");
+  if(code === null || !code.trim() || code !== ADMIN_CODE){
+    await customAlert("Access denied. Only the person who booked or an admin can change this.");
     return;
   }
 
   // Admin override: choose clear vs take over
-  const choice = confirm(
+  const choice = await customConfirm(
     "Admin override:\n\n" +
     "OK = Clear this booking\n" +
     "Cancel = Change it to you (" + currentUserName + ")."
@@ -1012,7 +1161,7 @@ function renderCalendar(){
       badge.textContent = b.name;
       btn.appendChild(badge);
     }
-    btn.onclick = () => toggleBooking(key);
+    btn.onclick = () => { toggleBooking(key); };
     td.appendChild(btn);
     tr.appendChild(td);
   }
@@ -1069,7 +1218,7 @@ function renderYear(){
         const col = userColours[b.name]?.colour || colourFromName(b.name);
         btn.style.background = col;
       }
-      btn.onclick = () => toggleBooking(key);
+      btn.onclick = () => { toggleBooking(key); };
       td.appendChild(btn);
       tr.appendChild(td);
     }
@@ -1136,8 +1285,8 @@ function initMonthSelector(){
 }
 
 /* INIT */
-function init(){
-  initUser();
+async function init(){
+  await initUser();
   loadProperties();
   initMonthSelector();
   renderCalendar();
