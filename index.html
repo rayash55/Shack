@@ -77,7 +77,6 @@
       justify-content: space-between;
       align-items: center;
       font-size: 0.9rem;
-      margin-top: 6px;
     }
 
     .user-label {
@@ -93,31 +92,15 @@
       border: 1px solid #555;
     }
 
-    /* Menu button – nicer pill style */
     #menuBtn {
       font-size: 22px;
-      background: linear-gradient(135deg, rgba(248,250,252,0.95), rgba(226,232,240,0.95));
       border-radius: 999px;
-      border: 1px solid rgba(15,23,42,0.15);
       cursor: pointer;
-      padding: 4px 12px 6px;
+      padding: 4px 10px 6px;
       line-height: 1;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.18);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
     }
 
-    #menuBtn:hover {
-      box-shadow: 0 6px 14px rgba(15,23,42,0.24);
-      transform: translateY(-1px);
-    }
-
-    #menuBtn:active {
-      transform: scale(0.96);
-      box-shadow: 0 2px 6px rgba(15,23,42,0.3);
-    }
+    #menuBtn:active { transform: scale(0.96); }
 
     /* Slide-out admin panel */
     #adminPanel {
@@ -142,60 +125,34 @@
       font-size: 0.98rem;
     }
 
-    /* Bigger, clearer close button for admin panel */
-    #adminCloseBtn {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: #0f172a;
-      color: #f9fafb;
-      border-radius: 999px;
-      width: 38px;
-      height: 38px;
-      border: 1px solid #020617;
-      font-size: 20px;
-      text-align: center;
-      line-height: 36px;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(15,23,42,0.4);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-    }
-
-    #adminCloseBtn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 14px rgba(15,23,42,0.5);
-      background: #020617;
-    }
-
-    #adminCloseBtn:active {
-      transform: scale(0.96);
-    }
-
-    /* Admin panel buttons – nicer styling */
     #adminPanel button {
       width: 100%;
       padding: 9px 10px;
       margin: 8px 0;
       font-size: 0.9rem;
       border-radius: 12px;
-      border: 1px solid #cbd5e1;
-      background: linear-gradient(135deg, #e0f2fe, #bfdbfe);
-      cursor: pointer;
       text-align: left;
-      font-weight: 500;
-      box-shadow: 0 3px 8px rgba(15,23,42,0.12);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-    }
-
-    #adminPanel button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 14px rgba(15,23,42,0.2);
-      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
     }
 
     #adminPanel button:active {
       transform: scale(0.97);
-      box-shadow: 0 2px 6px rgba(15,23,42,0.25);
+    }
+
+    #adminCloseBtn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      border-radius: 999px;
+      width: 36px;
+      height: 36px;
+      font-size: 20px;
+      text-align: center;
+      line-height: 32px;
+      cursor: pointer;
+      font-weight: 700;
+      background: #0f172a;
+      color: #f9fafb;
+      box-shadow: 0 4px 10px rgba(15,23,42,0.35);
     }
 
     .admin-caption {
@@ -222,40 +179,23 @@
       font-size: 0.85rem;
       border-radius: 999px;
       border: 1px solid rgba(15,23,42,0.18);
-      background: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.8);
       outline: none;
     }
 
-    /* Round property buttons – nicer look */
     .prop-btn {
       width: 30px;
       height: 30px;
       border-radius: 999px;
-      border: 1px solid rgba(15,23,42,0.18);
-      background: linear-gradient(135deg, #f9fafb, #e5e7eb);
       font-size: 18px;
       padding: 0;
-      cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 2px 6px rgba(15,23,42,0.16);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-    }
-
-    .prop-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 10px rgba(15,23,42,0.24);
-      background: linear-gradient(135deg, #eef2ff, #e5e7eb);
-    }
-
-    .prop-btn:active {
-      transform: scale(0.95);
-      box-shadow: 0 1px 4px rgba(15,23,42,0.3);
     }
 
     .prop-del {
-      background: linear-gradient(135deg, rgba(248,113,113,0.18), rgba(248,113,113,0.35));
+      background: rgba(248,113,113,0.18);
       border-color: rgba(248,113,113,0.6);
       color: #b91c1c;
     }
@@ -278,36 +218,20 @@
       padding: 4px 6px;
       border-radius: 999px;
       border: 1px solid rgba(15,23,42,0.18);
-      background: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.85);
       font-size: 0.8rem;
       outline: none;
     }
 
     #yearInput { width: 64px; }
 
-    /* Month navigation buttons */
     .nav-btn {
       border-radius: 999px;
-      padding: 3px 10px;
+      padding: 3px 8px;
       border: 1px solid rgba(15,23,42,0.15);
-      background: linear-gradient(135deg, #e0f2fe, #bae6fd);
-      cursor: pointer;
-      font-size: 0.8rem;
-      font-weight: 500;
-      box-shadow: 0 2px 6px rgba(15,23,42,0.16);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
     }
 
-    .nav-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 10px rgba(15,23,42,0.22);
-      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-    }
-
-    .nav-btn:active {
-      transform: scale(0.95);
-      box-shadow: 0 1px 4px rgba(15,23,42,0.3);
-    }
+    .nav-btn:active { transform: scale(0.95); }
 
     .view-toggle {
       display: flex;
@@ -316,34 +240,17 @@
       margin-bottom: 8px;
     }
 
-    /* Month/Year view buttons */
     .view-btn {
-      padding: 4px 12px;
+      padding: 4px 10px;
       border-radius: 999px;
       font-size: 0.75rem;
       border: 1px solid rgba(15,23,42,0.25);
-      background: rgba(255,255,255,0.9);
-      cursor: pointer;
-      font-weight: 500;
-      box-shadow: 0 2px 5px rgba(15,23,42,0.16);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, color 0.12s ease;
-    }
-
-    .view-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 9px rgba(15,23,42,0.22);
-      background: #e0f2fe;
-    }
-
-    .view-btn:active {
-      transform: scale(0.96);
     }
 
     .view-btn-active {
       background: #0f766e;
       color: #ecfeff;
       border-color: #0e7490;
-      box-shadow: 0 3px 9px rgba(15,118,110,0.45);
     }
 
     .calendar {
@@ -365,7 +272,6 @@
       background: rgba(255,255,255,0.15);
     }
 
-    /* Day button – subtle, tappable card */
     .day-btn {
       width: 100%;
       height: 100%;
@@ -376,14 +282,10 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: transform 0.07s ease, box-shadow 0.08s ease, background 0.08s ease;
-      border-radius: 10px;
-      padding: 1px 2px;
-    }
-
-    .day-btn:hover {
-      background: rgba(248,250,252,0.9);
-      box-shadow: 0 1px 4px rgba(15,23,42,0.2);
+      transition: transform 0.07s ease, box-shadow 0.08s ease;
+      box-shadow: none;
+      padding: 0;
+      border-radius: 0;
     }
 
     .day-btn:active {
@@ -445,7 +347,9 @@
       background: rgba(255,255,255,0.12);
     }
 
-    .calendar-mini .day-btn { font-size: 0.65rem; }
+    .calendar-mini .day-btn {
+      font-size: 0.65rem;
+    }
 
     .user-legend {
       display: flex;
@@ -468,7 +372,102 @@
       border: 1px solid #1f2933;
     }
 
-    button { font-family: inherit; }
+    /* Global button look */
+    button {
+      font-family: inherit;
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,42,0.18);
+      background: rgba(255,255,255,0.92);
+      padding: 6px 10px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(15,23,42,0.2);
+      transition: transform 0.08s ease, box-shadow 0.1s ease, background 0.1s ease;
+    }
+
+    button:hover {
+      background: rgba(241,245,249,0.98);
+      box-shadow: 0 3px 8px rgba(15,23,42,0.24);
+    }
+
+    button:active {
+      transform: scale(0.97);
+      box-shadow: 0 1px 3px rgba(15,23,42,0.2);
+    }
+
+    /* Modal popup */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+    }
+
+    .modal {
+      background: #f9fafb;
+      border-radius: 18px;
+      padding: 14px 16px 12px;
+      width: 90%;
+      max-width: 360px;
+      box-shadow: 0 18px 40px rgba(15,23,42,0.45);
+    }
+
+    .modal-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #0f172a;
+    }
+
+    .modal-message {
+      font-size: 0.82rem;
+      color: #1f2937;
+      margin-bottom: 10px;
+      white-space: pre-wrap;
+    }
+
+    .modal-input {
+      width: 100%;
+      padding: 7px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,42,0.25);
+      font-size: 0.82rem;
+      outline: none;
+      margin-bottom: 10px;
+      background: #ffffff;
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .modal-buttons button {
+      min-width: 70px;
+      font-size: 0.78rem;
+      padding-inline: 10px;
+      box-shadow: none;
+    }
+
+    .modal-primary {
+      background: #0f766e;
+      color: #ecfeff;
+      border-color: #0f766e;
+    }
+
+    .modal-primary:hover {
+      background: #115e59;
+    }
+
+    .modal-destructive {
+      background: #b91c1c;
+      color: #fee2e2;
+      border-color: #b91c1c;
+    }
 
     @media (max-width: 360px) {
       .app { padding: 8px; }
@@ -486,7 +485,7 @@
         Guests can only view bookings - contact admin for name to make bookings
       </div>
     </div>
-    <div class="top-bar">
+    <div class="top-bar" style="margin-top:6px;">
       <div class="user-label">
         <span>You:</span>
         <span id="userNameLabel" style="font-weight:500;"></span>
@@ -560,7 +559,20 @@
 
   <button id="btnAddUser">Add new user (admin)</button>
   <button id="btnRenameUser">Rename a user (admin)</button>
-  <button id="btnDeleteUser">Delete a user & bookings (admin)</button>
+  <button id="btnDeleteUser">Delete a user &amp; bookings (admin)</button>
+</div>
+
+<!-- Custom modal (replaces alerts/prompts/confirms) -->
+<div id="modalOverlay" class="modal-overlay">
+  <div class="modal">
+    <div id="modalTitle" class="modal-title"></div>
+    <div id="modalMessage" class="modal-message"></div>
+    <input id="modalInput" class="modal-input" style="display:none;">
+    <div class="modal-buttons">
+      <button id="modalCancelBtn">Cancel</button>
+      <button id="modalOkBtn" class="modal-primary">OK</button>
+    </div>
+  </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -617,6 +629,14 @@ const calendarBody = document.getElementById("calendarBody");
 const yearGrid = document.getElementById("yearGrid");
 const userLegend = document.getElementById("userLegend");
 
+/* MODAL DOM */
+const modalOverlay = document.getElementById("modalOverlay");
+const modalTitle = document.getElementById("modalTitle");
+const modalMessage = document.getElementById("modalMessage");
+const modalInput = document.getElementById("modalInput");
+const modalCancelBtn = document.getElementById("modalCancelBtn");
+const modalOkBtn = document.getElementById("modalOkBtn");
+
 /* HELPERS */
 const MONTH_NAMES = [
   "January","February","March","April","May","June",
@@ -641,16 +661,137 @@ function ensureUserColour(name){
   });
 }
 
+/* MODAL HELPERS (replaces alert/prompt/confirm) */
+function openModal(options) {
+  const {
+    title = "",
+    message = "",
+    showInput = false,
+    inputPlaceholder = "",
+    inputValue = "",
+    okText = "OK",
+    cancelText = "Cancel",
+    hideCancel = false,
+    primaryDestructive = false
+  } = options || {};
+
+  return new Promise(resolve => {
+    modalTitle.textContent = title || "";
+    modalTitle.style.display = title ? "block" : "none";
+    modalMessage.textContent = message || "";
+    modalInput.style.display = showInput ? "block" : "none";
+    modalInput.value = inputValue || "";
+    modalInput.placeholder = inputPlaceholder || "";
+
+    modalOkBtn.textContent = okText;
+    modalCancelBtn.textContent = cancelText;
+    modalCancelBtn.style.display = hideCancel ? "none" : "inline-flex";
+
+    modalOkBtn.classList.remove("modal-destructive");
+    if (primaryDestructive) {
+      modalOkBtn.classList.add("modal-destructive");
+    }
+
+    modalOverlay.style.display = "flex";
+
+    let finished = false;
+
+    function cleanup(result) {
+      if (finished) return;
+      finished = true;
+      modalOverlay.style.display = "none";
+      modalOkBtn.removeEventListener("click", onOk);
+      modalCancelBtn.removeEventListener("click", onCancel);
+      modalOverlay.removeEventListener("click", onBackdrop);
+      document.removeEventListener("keydown", onKey);
+      resolve(result);
+    }
+
+    function onOk() {
+      const value = showInput ? modalInput.value : null;
+      cleanup({ confirmed: true, value });
+    }
+    function onCancel() {
+      cleanup({ confirmed: false, value: null });
+    }
+    function onBackdrop(e) {
+      if (e.target === modalOverlay && !hideCancel) {
+        cleanup({ confirmed: false, value: null });
+      }
+    }
+    function onKey(e) {
+      if (e.key === "Escape" && !hideCancel) {
+        cleanup({ confirmed: false, value: null });
+      } else if (e.key === "Enter") {
+        onOk();
+      }
+    }
+
+    modalOkBtn.addEventListener("click", onOk);
+    modalCancelBtn.addEventListener("click", onCancel);
+    modalOverlay.addEventListener("click", onBackdrop);
+    document.addEventListener("keydown", onKey);
+
+    if (showInput) {
+      modalInput.focus();
+      modalInput.select();
+    } else {
+      modalOkBtn.focus();
+    }
+  });
+}
+
+async function showAlert(message) {
+  await openModal({
+    title: "",
+    message,
+    showInput: false,
+    okText: "OK",
+    hideCancel: true
+  });
+}
+
+async function showConfirm(message) {
+  const res = await openModal({
+    title: "",
+    message,
+    showInput: false,
+    okText: "OK",
+    cancelText: "Cancel",
+    hideCancel: false
+  });
+  return !!res.confirmed;
+}
+
+async function showPrompt(message, defaultValue = "") {
+  const res = await openModal({
+    title: "",
+    message,
+    showInput: true,
+    inputValue: defaultValue,
+    okText: "OK",
+    cancelText: "Cancel",
+    hideCancel: false
+  });
+  if (!res.confirmed) return null;
+  return res.value;
+}
+
 /* USER / PROFILE */
-function askForName(){
+async function askForName(){
   let n = "";
   while(!n){
-    n = prompt("Enter your name:") || "Guest";
-    n = n.trim();
-    if (!n) continue;
+    let input = await showPrompt("Enter your name:");
+    if (input === null) {
+      input = "Guest";
+    }
+    input = (input || "").trim();
+    if (!input) {
+      input = "Guest";
+    }
 
-    if (n === "Guest") {
-      const proceed = confirm(
+    if (input === "Guest") {
+      const proceed = await showConfirm(
         'If you continue as "Guest", you will NOT be able to make bookings.\n\n' +
         'You will need an admin code later to change this name.\n\n' +
         'Continue as "Guest"?'
@@ -660,22 +801,25 @@ function askForName(){
         continue;
       }
     }
+    n = input;
   }
   currentUserName = n;
   localStorage.setItem("hh_user_name", n);
   ensureUserColour(n);
   updateUserUI();
 }
-function initUser(){
+
+async function initUser(){
   const stored = localStorage.getItem("hh_user_name");
   if(stored){
     currentUserName = stored;
     ensureUserColour(stored);
   } else {
-    askForName();
+    await askForName();
   }
   updateUserUI();
 }
+
 function updateUserUI(){
   userNameLabel.textContent = currentUserName || "";
   const col = userColours[currentUserName]?.colour || colourFromName(currentUserName || "");
@@ -696,20 +840,20 @@ adminCloseBtn.onclick = () => {
 };
 
 btnChangeName.onclick = async () => {
-  const code = prompt("Admin code required to change this device name:");
-  if (code !== ADMIN_CODE) {
-    alert("Access denied. Ask the owner/manager if this needs to be changed.");
+  const code = await showPrompt("Admin code required to change this device name:");
+  if (!code || code !== ADMIN_CODE) {
+    await showAlert("Access denied. Ask the owner/manager if this needs to be changed.");
     return;
   }
 
-  const newName = prompt("Enter new name for this device:");
+  const newName = await showPrompt("Enter new name for this device:");
   if (!newName) return;
   const trimmed = newName.trim();
   if (!trimmed) return;
 
   const existingSnap = await db.ref("users/" + trimmed).once("value");
   if (existingSnap.exists() && trimmed !== currentUserName) {
-    const proceed = confirm(
+    const proceed = await showConfirm(
       'The name "' + trimmed + '" is already registered.\n\n' +
       "Use this name anyway? (This will NOT move existing bookings.)"
     );
@@ -724,49 +868,49 @@ btnChangeName.onclick = async () => {
 };
 
 btnAddUser.onclick = async () => {
-  const code = prompt("Admin code required to add a new user:");
-  if (code !== ADMIN_CODE) {
-    alert("Access denied.");
+  const code = await showPrompt("Admin code required to add a new user:");
+  if (!code || code !== ADMIN_CODE) {
+    await showAlert("Access denied.");
     return;
   }
 
-  const name = prompt("Enter new user name to add:");
+  const name = await showPrompt("Enter new user name to add:");
   if (!name) return;
   const trimmed = name.trim();
   if (!trimmed) return;
 
   if (trimmed === "Guest") {
-    alert('You can’t add "Guest" as a managed user.');
+    await showAlert('You can’t add "Guest" as a managed user.');
     return;
   }
 
   const userRef = db.ref("users/" + trimmed);
   const snap = await userRef.once("value");
   if (snap.exists()) {
-    alert('User "' + trimmed + '" already exists.');
+    await showAlert('User "' + trimmed + '" already exists.');
     return;
   }
 
   await userRef.set({ colour: colourFromName(trimmed) });
-  alert('User "' + trimmed + '" has been created.');
+  await showAlert('User "' + trimmed + '" has been created.');
 };
 
 btnRenameUser.onclick = async () => {
-  const code = prompt("Admin code required to rename a user:");
-  if (code !== ADMIN_CODE) {
-    alert("Access denied.");
+  const code = await showPrompt("Admin code required to rename a user:");
+  if (!code || code !== ADMIN_CODE) {
+    await showAlert("Access denied.");
     return;
   }
 
-  const oldName = prompt("Enter CURRENT user name (exact):");
+  const oldName = await showPrompt("Enter CURRENT user name (exact):");
   if (!oldName) return;
-  const newName = prompt("Enter NEW user name:");
+  const newName = await showPrompt("Enter NEW user name:");
   if (!newName) return;
 
   const userRef = db.ref("users/"+oldName);
   const snap = await userRef.once("value");
   if(!snap.exists()){
-    alert("User not found");
+    await showAlert("User not found.");
     return;
   }
   const data = snap.val();
@@ -790,21 +934,21 @@ btnRenameUser.onclick = async () => {
     localStorage.setItem("hh_user_name", newName);
     updateUserUI();
   }
-  alert('User renamed from "'+oldName+'" to "'+newName+'".');
+  await showAlert('User renamed from "'+oldName+'" to "'+newName+'".');
   adminPanel.classList.remove("open");
 };
 
 btnDeleteUser.onclick = async () => {
-  const code = prompt("Admin code required to delete a user:");
-  if (code !== ADMIN_CODE) {
-    alert("Access denied.");
+  const code = await showPrompt("Admin code required to delete a user:");
+  if (!code || code !== ADMIN_CODE) {
+    await showAlert("Access denied.");
     return;
   }
 
-  const delName = prompt("Enter user name to DELETE (exact):");
+  const delName = await showPrompt("Enter user name to DELETE (exact):");
   if(!delName) return;
 
-  const confirmDelete = confirm(
+  const confirmDelete = await showConfirm(
     'Delete user "' + delName + '" and all of their bookings?'
   );
   if(!confirmDelete) return;
@@ -812,7 +956,7 @@ btnDeleteUser.onclick = async () => {
   const userRef = db.ref("users/" + delName);
   const snap = await userRef.once("value");
   if(!snap.exists()){
-    alert("User not found");
+    await showAlert("User not found.");
     return;
   }
 
@@ -836,7 +980,7 @@ btnDeleteUser.onclick = async () => {
     updateUserUI();
   }
 
-  alert('User "' + delName + '" and their bookings have been deleted from this system.');
+  await showAlert('User "' + delName + '" and their bookings have been deleted from this system.');
   adminPanel.classList.remove("open");
 };
 
@@ -883,30 +1027,36 @@ function loadProperties(){
     attachBookings();
   });
 }
+
 propertySelect.onchange = () => {
   currentPropertyId = propertySelect.value;
   attachBookings();
 };
-addPropertyBtn.onclick = () => {
-  const code = prompt("Admin code?");
-  if(code !== ADMIN_CODE){
-    alert("Access denied");
+
+addPropertyBtn.onclick = async () => {
+  const code = await showPrompt("Admin code?");
+  if(!code || code !== ADMIN_CODE){
+    await showAlert("Access denied");
     return;
   }
-  let n = prompt("New property name:");
+  let n = await showPrompt("New property name:");
   if(!n) return;
   n = n.trim();
   const id = slugify(n) || ("prop-"+Date.now());
   db.ref("properties/"+id).set({id, name:n});
 };
-deletePropertyBtn.onclick = () => {
-  const code = prompt("Admin code?");
-  if(code !== ADMIN_CODE){
-    alert("Access denied");
+
+deletePropertyBtn.onclick = async () => {
+  const code = await showPrompt("Admin code?");
+  if(!code || code !== ADMIN_CODE){
+    await showAlert("Access denied");
     return;
   }
   if(!currentPropertyId) return;
-  if(!confirm("Delete this property and all bookings?")) return;
+
+  const ok = await showConfirm("Delete this property and all bookings?");
+  if(!ok) return;
+
   db.ref("properties/"+currentPropertyId).remove();
   db.ref("bookings/"+currentPropertyId).remove();
 };
@@ -922,18 +1072,19 @@ function attachBookings(){
   });
 }
 
-function toggleBooking(key){
+async function toggleBooking(key){
   const existing = bookings[key];
   const ref = db.ref("bookings/"+currentPropertyId+"/"+key);
 
   // Guest: view-only, except can clean up old Guest bookings
   if (currentUserName === "Guest") {
     if (existing && existing.name === "Guest") {
-      if (confirm("Remove this old Guest booking?")) {
+      const remove = await showConfirm("Remove this old Guest booking?");
+      if (remove) {
         ref.remove();
       }
     } else {
-      alert("Guests can only view bookings - contact admin for name to make bookings");
+      await showAlert("Guests can only view bookings - contact admin for name to make bookings");
     }
     return;
   }
@@ -948,25 +1099,26 @@ function toggleBooking(key){
 
   // Owner can cancel their own booking
   if(isOwner){
-    if(confirm("Cancel your booking?")){
+    const cancel = await showConfirm("Cancel your booking?");
+    if(cancel){
       ref.remove();
     }
     return;
   }
 
   // Others: admin code required to change
-  const code = prompt(
+  const code = await showPrompt(
     existing.name +
     " has booked this day.\n\n" +
     "Admin code is required to change this booking."
   );
-  if(code !== ADMIN_CODE){
-    alert("Access denied. Only the person who booked or an admin can change this.");
+  if(!code || code !== ADMIN_CODE){
+    await showAlert("Access denied. Only the person who booked or an admin can change this.");
     return;
   }
 
   // Admin override: choose clear vs take over
-  const choice = confirm(
+  const choice = await showConfirm(
     "Admin override:\n\n" +
     "OK = Clear this booking\n" +
     "Cancel = Change it to you (" + currentUserName + ")."
@@ -1136,8 +1288,8 @@ function initMonthSelector(){
 }
 
 /* INIT */
-function init(){
-  initUser();
+async function init(){
+  await initUser();
   loadProperties();
   initMonthSelector();
   renderCalendar();
