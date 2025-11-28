@@ -1,17 +1,15 @@
 // service-worker.js
-// Instant-update service worker with no manual caching.
-// Browser handles normal HTTP caching, and any new SW
-// version activates and takes control immediately.
+// Instant-update service worker with no caching.
+// Ensures new versions of the site load immediately.
 
 self.addEventListener('install', (event) => {
-  // Activate this service worker as soon as it's finished installing
+  // Activate this service worker immediately after installing
   self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
-  // Take control of all open tabs right away
+  // Take control of all open tabs immediately
   event.waitUntil(self.clients.claim());
 });
 
-// Optional: you can log to see it's working (visible in DevTools > Console)
 console.log('Ash Shack Usage service worker active (instant update mode).');
