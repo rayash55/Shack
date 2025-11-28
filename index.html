@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Ash Shack Usage</title>
+  <title>Ash Shack Usa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#1b4d6b">
 
@@ -626,6 +626,8 @@ menuBtn.onclick = () => {
 
 adminCloseBtn.onclick = () => {
   adminPanel.classList.remove("open");
+  // End admin session when panel is closed
+  isAdminUnlocked = false;
 };
 
 btnUnlockAdmin.onclick = () => {
@@ -643,7 +645,6 @@ btnUnlockAdmin.onclick = () => {
   btnRenameUser.style.display = "block";
   btnDeleteUser.style.display = "block";
   btnUnlockAdmin.style.display = "none";
-  alert("Admin tools unlocked");
 };
 
 btnChangeName.onclick = async () => {
@@ -672,6 +673,7 @@ btnChangeName.onclick = async () => {
   ensureUserColour(currentUserName);
   updateUserUI();
   adminPanel.classList.remove("open");
+  isAdminUnlocked = false;
 };
 
 btnAddUser.onclick = async () => {
@@ -731,6 +733,7 @@ btnRenameUser.onclick = async () => {
   }
   alert('User renamed from "'+oldName+'" to "'+newName+'".');
   adminPanel.classList.remove("open");
+  isAdminUnlocked = false;
 };
 
 btnDeleteUser.onclick = async () => {
@@ -771,6 +774,7 @@ btnDeleteUser.onclick = async () => {
 
   alert('User "' + delName + '" and their bookings have been deleted from this system.');
   adminPanel.classList.remove("open");
+  isAdminUnlocked = false;
 };
 
 /* USERS / LEGEND */
@@ -962,56 +966,56 @@ function renderYear(){
 
     const title = document.createElement("div");
     title.className = "year-month-title";
-    title.textContent = MONTH_NAMES[m];
-    box.appendChild(title);
+      title.textContent = MONTH_NAMES[m];
+      box.appendChild(title);
 
-    const table = document.createElement("table");
-    table.className = "calendar-mini";
+      const table = document.createElement("table");
+      table.className = "calendar-mini";
 
-    const thead = document.createElement("thead");
-    const trh = document.createElement("tr");
-    ["S","M","T","W","T","F","S"].forEach(t=>{
-      const th = document.createElement("th");
-      th.textContent = t;
-      trh.appendChild(th);
-    });
-    thead.appendChild(trh);
-    table.appendChild(thead);
+      const thead = document.createElement("thead");
+      const trh = document.createElement("tr");
+      ["S","M","T","W","T","F","S"].forEach(t=>{
+        const th = document.createElement("th");
+        th.textContent = t;
+        trh.appendChild(th);
+      });
+      thead.appendChild(trh);
+      table.appendChild(thead);
 
-    const tbody = document.createElement("tbody");
-    const first = new Date(currentYear,m,1);
-    const start = first.getDay();
-    const days = new Date(currentYear,m+1,0).getDate();
+      const tbody = document.createElement("tbody");
+      const first = new Date(currentYear,m,1);
+      const start = first.getDay();
+      const days = new Date(currentYear,m+1,0).getDate();
 
-    let tr = document.createElement("tr");
-    for(let i=0;i<start;i++) tr.appendChild(document.createElement("td"));
+      let tr = document.createElement("tr");
+      for(let i=0;i<start;i++) tr.appendChild(document.createElement("td"));
 
-    for(let d=1;d<=days;d++){
-      if(tr.children.length===7){
-        tbody.appendChild(tr);
-        tr = document.createElement("tr");
+      for(let d=1;d<=days;d++){
+        if(tr.children.length===7){
+          tbody.appendChild(tr);
+          tr = document.createElement("tr");
+        }
+        const td = document.createElement("td");
+        const btn = document.createElement("button");
+        btn.className = "day-btn";
+        btn.textContent = d;
+
+        const key = formatDateKey(currentYear,m,d);
+        const b = bookings[key];
+        if(b){
+          const col = userColours[b.name]?.colour || colourFromName(b.name);
+          btn.style.background = col;
+        }
+        btn.onclick = () => toggleBooking(key);
+        td.appendChild(btn);
+        tr.appendChild(td);
       }
-      const td = document.createElement("td");
-      const btn = document.createElement("button");
-      btn.className = "day-btn";
-      btn.textContent = d;
-
-      const key = formatDateKey(currentYear,m,d);
-      const b = bookings[key];
-      if(b){
-        const col = userColours[b.name]?.colour || colourFromName(b.name);
-        btn.style.background = col;
-      }
-      btn.onclick = () => toggleBooking(key);
-      td.appendChild(btn);
-      tr.appendChild(td);
+      while(tr.children.length<7) tr.appendChild(document.createElement("td"));
+      tbody.appendChild(tr);
+      table.appendChild(tbody);
+      box.appendChild(table);
+      yearGrid.appendChild(box);
     }
-    while(tr.children.length<7) tr.appendChild(document.createElement("td"));
-    tbody.appendChild(tr);
-    table.appendChild(tbody);
-    box.appendChild(table);
-    yearGrid.appendChild(box);
-  }
 }
 
 /* MONTH/YEAR SELECTOR */
