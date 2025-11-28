@@ -12,9 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     html, body {
       margin: 0;
@@ -25,7 +23,6 @@
     }
 
     body {
-      /* Full-screen river photo */
       background: url("river-bg.jpg") no-repeat center center fixed;
       background-size: cover;
       display: flex;
@@ -43,7 +40,6 @@
       position: relative;
     }
 
-    /* Frosted glass card */
     .card {
       background: rgba(255,255,255,0.22);
       backdrop-filter: blur(16px);
@@ -54,13 +50,9 @@
       padding: 10px 12px;
     }
 
-    .card-compact {
-      padding: 8px 10px;
-    }
+    .card-compact { padding: 8px 10px; }
 
-    .card-header {
-      text-align: center;
-    }
+    .card-header { text-align: center; }
 
     h1 {
       margin: 0;
@@ -72,6 +64,12 @@
       margin-top: 4px;
       font-size: 0.8rem;
       color: #103445;
+    }
+
+    .guest-notice {
+      margin-top: 4px;
+      font-size: 0.7rem;
+      color: #b91c1c;
     }
 
     .top-bar {
@@ -94,7 +92,6 @@
       border: 1px solid #555;
     }
 
-    /* … menu icon */
     #menuBtn {
       font-size: 22px;
       background: rgba(255,255,255,0.55);
@@ -106,9 +103,7 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.18);
     }
 
-    #menuBtn:active {
-      transform: scale(0.96);
-    }
+    #menuBtn:active { transform: scale(0.96); }
 
     /* Slide-out admin panel */
     #adminPanel {
@@ -125,9 +120,7 @@
       font-size: 0.9rem;
     }
 
-    #adminPanel.open {
-      right: 0;
-    }
+    #adminPanel.open { right: 0; }
 
     #adminPanel h3 {
       margin: 12px 0 6px;
@@ -173,7 +166,6 @@
       margin-bottom: 6px;
     }
 
-    /* Property card */
     .property-bar {
       display: flex;
       align-items: center;
@@ -216,11 +208,8 @@
       color: #b91c1c;
     }
 
-    .prop-btn:active {
-      transform: scale(0.95);
-    }
+    .prop-btn:active { transform: scale(0.95); }
 
-    /* Month nav */
     .month-nav {
       display: flex;
       justify-content: space-between;
@@ -244,9 +233,7 @@
       outline: none;
     }
 
-    #yearInput {
-      width: 64px;
-    }
+    #yearInput { width: 64px; }
 
     .nav-btn {
       border-radius: 999px;
@@ -256,11 +243,8 @@
       cursor: pointer;
     }
 
-    .nav-btn:active {
-      transform: scale(0.95);
-    }
+    .nav-btn:active { transform: scale(0.95); }
 
-    /* View toggle */
     .view-toggle {
       display: flex;
       justify-content: center;
@@ -283,7 +267,6 @@
       border-color: #0e7490;
     }
 
-    /* Calendar */
     .calendar {
       width: 100%;
       border-collapse: collapse;
@@ -338,10 +321,7 @@
       text-overflow: ellipsis;
     }
 
-    /* Year view */
-    #yearView {
-      margin-top: 4px;
-    }
+    #yearView { margin-top: 4px; }
 
     .year-grid {
       display: grid;
@@ -369,9 +349,7 @@
       font-size: 0.65rem;
     }
 
-    .calendar-mini th {
-      padding: 2px 0;
-    }
+    .calendar-mini th { padding: 2px 0; }
 
     .calendar-mini td {
       height: 24px;
@@ -380,11 +358,8 @@
       background: rgba(255,255,255,0.12);
     }
 
-    .calendar-mini .day-btn {
-      font-size: 0.65rem;
-    }
+    .calendar-mini .day-btn { font-size: 0.65rem; }
 
-    /* Legend card */
     .user-legend {
       display: flex;
       flex-wrap: wrap;
@@ -406,27 +381,23 @@
       border: 1px solid #1f2933;
     }
 
-    button {
-      font-family: inherit;
-    }
+    button { font-family: inherit; }
 
     @media (max-width: 360px) {
-      .app {
-        padding: 8px;
-      }
-      .card {
-        border-radius: 18px;
-      }
+      .app { padding: 8px; }
+      .card { border-radius: 18px; }
     }
   </style>
 </head>
 <body>
 <div class="app">
-  <!-- HEADER CARD -->
   <div class="card card-compact">
     <div class="card-header">
       <h1>Ash Shack Usage</h1>
       <div class="subtitle">Tap a day to book it.</div>
+      <div id="guestNotice" class="guest-notice" style="display:none;">
+        Guests can only view bookings - contact admin for name to make bookings
+      </div>
     </div>
     <div class="top-bar" style="margin-top:6px;">
       <div class="user-label">
@@ -438,7 +409,6 @@
     </div>
   </div>
 
-  <!-- PROPERTY CARD -->
   <div class="card card-compact">
     <div class="property-bar">
       <span class="property-label">Property:</span>
@@ -448,7 +418,6 @@
     </div>
   </div>
 
-  <!-- CALENDAR CONTROLS + CALENDAR CARD -->
   <div class="card">
     <div class="month-nav">
       <button id="prevMonthBtn" class="nav-btn">◀</button>
@@ -481,13 +450,11 @@
     </div>
   </div>
 
-  <!-- LEGEND CARD -->
   <div class="card card-compact">
     <div id="userLegend" class="user-legend"></div>
   </div>
 </div>
 
-<!-- SLIDE-OUT ADMIN PANEL -->
 <div id="adminPanel">
   <button id="adminCloseBtn">×</button>
 
@@ -507,7 +474,6 @@
   <button id="btnDeleteUser" style="display:none;">Delete a user (admin)</button>
 </div>
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
@@ -534,7 +500,7 @@ let userColours = {};
 let currentYear = new Date().getFullYear();
 let currentMonth = new Date().getMonth();
 let viewMode = "month";
-let isAdminUnlocked = false; // track admin mode
+let isAdminUnlocked = false;
 
 /* DOM */
 const userNameLabel = document.getElementById("userNameLabel");
@@ -549,6 +515,7 @@ const btnUnlockAdmin = document.getElementById("btnUnlockAdmin");
 const adminSectionHeader = document.getElementById("adminSectionHeader");
 const adminCaption = document.getElementById("adminCaption");
 const btnDeleteUser = document.getElementById("btnDeleteUser");
+const guestNotice = document.getElementById("guestNotice");
 
 const propertySelect = document.getElementById("propertySelect");
 const addPropertyBtn = document.getElementById("addPropertyBtn");
@@ -572,7 +539,7 @@ const MONTH_NAMES = [
 ];
 
 function slugify(t){
-  return t.toLowerCase().trim().replace(/\s+/g,"-").replace(/[^a-z0-9\\-]/g,"");
+  return t.toLowerCase().trim().replace(/\s+/g,"-").replace(/[^a-z0-9\-]/g,"");
 }
 function formatDateKey(y,m,d){
   return y + "-" + String(m+1).padStart(2,"0") + "-" + String(d).padStart(2,"0");
@@ -599,8 +566,8 @@ function askForName(){
 
     if (n === "Guest") {
       const proceed = confirm(
-        'If you continue as "Guest", this name will be locked on this device.\n\n' +
-        'You will need an admin code later to change it.\n\n' +
+        'If you continue as "Guest", you will NOT be able to make bookings.\n\n' +
+        'You will need an admin code later to change this name.\n\n' +
         'Continue as "Guest"?'
       );
       if (!proceed) {
@@ -628,6 +595,10 @@ function updateUserUI(){
   userNameLabel.textContent = currentUserName || "";
   const col = userColours[currentUserName]?.colour || colourFromName(currentUserName || "");
   userColourPreview.style.background = col;
+
+  if (guestNotice) {
+    guestNotice.style.display = (currentUserName === "Guest") ? "block" : "none";
+  }
 }
 
 /* ADMIN PANEL */
@@ -635,7 +606,6 @@ menuBtn.onclick = () => {
   adminPanel.classList.add("open");
 
   if (isAdminUnlocked) {
-    // Admin already unlocked – show tools, hide unlock button
     adminSectionHeader.style.display = "block";
     adminCaption.style.display = "block";
     btnChangeName.style.display = "block";
@@ -644,7 +614,6 @@ menuBtn.onclick = () => {
     btnDeleteUser.style.display = "block";
     btnUnlockAdmin.style.display = "none";
   } else {
-    // Not unlocked yet – hide tools, show unlock button
     adminSectionHeader.style.display = "none";
     adminCaption.style.display = "none";
     btnChangeName.style.display = "none";
@@ -660,24 +629,23 @@ adminCloseBtn.onclick = () => {
 };
 
 btnUnlockAdmin.onclick = () => {
-  if (isAdminUnlocked) return; // already unlocked, do nothing
+  if (isAdminUnlocked) return;
   const code = prompt("Admin code?");
   if(code !== ADMIN_CODE){
     alert("Access denied");
     return;
   }
-  isAdminUnlocked = true; // admin mode ON
+  isAdminUnlocked = true;
   adminSectionHeader.style.display = "block";
   adminCaption.style.display = "block";
   btnChangeName.style.display = "block";
   btnAddUser.style.display = "block";
   btnRenameUser.style.display = "block";
   btnDeleteUser.style.display = "block";
-  btnUnlockAdmin.style.display = "none"; // hide once unlocked
+  btnUnlockAdmin.style.display = "none";
   alert("Admin tools unlocked");
 };
 
-/* CHANGE NAME (ADMIN ONLY) */
 btnChangeName.onclick = async () => {
   const code = prompt("Admin code required to change name:");
   if (code !== ADMIN_CODE) {
@@ -706,7 +674,6 @@ btnChangeName.onclick = async () => {
   adminPanel.classList.remove("open");
 };
 
-/* ADD NEW USER (ADMIN) */
 btnAddUser.onclick = async () => {
   const name = prompt("Enter new user name to add:");
   if (!name) return;
@@ -729,7 +696,6 @@ btnAddUser.onclick = async () => {
   alert('User "' + trimmed + '" has been created.');
 };
 
-/* RENAME ANOTHER USER (ADMIN) */
 btnRenameUser.onclick = async () => {
   const oldName = prompt("Enter CURRENT user name (exact):");
   if(!oldName) return;
@@ -767,7 +733,6 @@ btnRenameUser.onclick = async () => {
   adminPanel.classList.remove("open");
 };
 
-/* DELETE USER (ADMIN) */
 btnDeleteUser.onclick = async () => {
   const delName = prompt("Enter user name to DELETE (exact):");
   if(!delName) return;
@@ -894,42 +859,55 @@ function toggleBooking(key){
   const existing = bookings[key];
   const ref = db.ref("bookings/"+currentPropertyId+"/"+key);
 
-  // No booking -> anyone can create one
+  // Block Guest from creating or changing bookings (except cleaning up old Guest bookings)
+  if (currentUserName === "Guest") {
+    if (existing && existing.name === "Guest") {
+      if (confirm("Remove this old Guest booking?")) {
+        ref.remove();
+      }
+    } else {
+      alert("Guests can only view bookings - contact admin for name to make bookings");
+    }
+    return;
+  }
+
+  // No booking: anyone (non-Guest) can create one
   if(!existing){
-    ref.set({name:currentUserName});
+    ref.set({name: currentUserName});
     return;
   }
 
   const isOwner = existing.name === currentUserName;
 
-  // Not owner & not admin: cannot change
-  if(!isOwner && !isAdminUnlocked){
-    alert(existing.name + " has booked this day. Only they or an admin can change it.");
-    return;
-  }
-
-  // Owner, not admin – they can cancel their own booking
-  if(isOwner && !isAdminUnlocked){
+  // Owner: can cancel their own booking without admin code
+  if(isOwner){
     if(confirm("Cancel your booking?")){
       ref.remove();
     }
     return;
   }
 
-  // Admin unlocked – can clear or take over any booking
-  if(isAdminUnlocked){
-    const choice = confirm(
-      existing.name +
-      " has this booked.\n\n" +
-      "OK = Clear this booking\n" +
-      "Cancel = Change it to you (" + currentUserName + ")."
-    );
-    if(choice){
-      ref.remove();
-    } else {
-      ref.set({name:currentUserName});
-    }
+  // Not owner: require admin code to change
+  const code = prompt(
+    existing.name +
+    " has booked this day.\n\n" +
+    "Admin code is required to change this booking."
+  );
+  if(code !== ADMIN_CODE){
+    alert("Access denied. Only the person who booked or an admin can change this.");
     return;
+  }
+
+  // Admin override: choose clear vs take over
+  const choice = confirm(
+    "Admin override:\n\n" +
+    "OK = Clear this booking\n" +
+    "Cancel = Change it to you (" + currentUserName + ")."
+  );
+  if(choice){
+    ref.remove();
+  } else {
+    ref.set({name: currentUserName});
   }
 }
 
