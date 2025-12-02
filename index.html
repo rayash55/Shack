@@ -310,41 +310,58 @@
     }
 
     .view-toggle {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
 
-    /* Month/Year view buttons */
-    .view-btn {
-      padding: 4px 12px;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      border: 1px solid rgba(15,23,42,0.25);
-      background: rgba(255,255,255,0.9);
-      cursor: pointer;
-      font-weight: 500;
-      box-shadow: 0 2px 5px rgba(15,23,42,0.16);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, color 0.12s ease;
-    }
+/* Month/Year view buttons – force clear text colours */
+.view-btn {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  border: 1px solid rgba(15,23,42,0.25);
+  background: rgba(255,255,255,0.95);
+  cursor: pointer;
+  font-weight: 500;
+  color: #0f172a; /* always dark text for unselected state */
+  box-shadow: 0 2px 5px rgba(15,23,42,0.16);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease,
+    background 0.12s ease,
+    color 0.12s ease;
+}
 
-    .view-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 9px rgba(15,23,42,0.22);
-      background: #e0f2fe;
-    }
+.view-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 9px rgba(15,23,42,0.22);
+  background: #e0f2fe;
+}
 
-    .view-btn:active {
-      transform: scale(0.96);
-    }
+/* Pressed / focused state for normal button */
+.view-btn:active,
+.view-btn:focus-visible {
+  transform: scale(0.96);
+  background: #e5e7eb;
+  color: #0f172a;
+}
 
-    .view-btn-active {
-      background: #0f766e;
-      color: #ecfeff;
-      border-color: #0e7490;
-      box-shadow: 0 3px 9px rgba(15,118,110,0.45);
-    }
+/* Selected (active) view button */
+.view-btn-active {
+  background: #0f766e;
+  color: #ecfeff;          /* white text when selected */
+  border-color: #0e7490;
+  box-shadow: 0 3px 9px rgba(15,118,110,0.45);
+}
+
+/* Pressed / focused state for selected button – keep teal + white */
+.view-btn-active:active,
+.view-btn-active:focus-visible {
+  background: #0f766e;
+  color: #ecfeff;
+}
 
     .calendar {
       width: 100%;
