@@ -12,7 +12,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent; /* remove iOS/Android tap flash */
+    }
 
     html, body {
       margin: 0;
@@ -281,6 +284,8 @@
       background: rgba(255,255,255,0.9);
       font-size: 0.8rem;
       outline: none;
+      -webkit-appearance: none;
+      appearance: none;
     }
 
     #yearInput { width: 64px; }
@@ -310,58 +315,57 @@
     }
 
     .view-toggle {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 8px;
-}
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
 
-/* Month/Year view buttons – force clear text colours */
-.view-btn {
-  padding: 4px 12px;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  border: 1px solid rgba(15,23,42,0.25);
-  background: rgba(255,255,255,0.95);
-  cursor: pointer;
-  font-weight: 500;
-  color: #0f172a; /* always dark text for unselected state */
-  box-shadow: 0 2px 5px rgba(15,23,42,0.16);
-  transition:
-    transform 0.12s ease,
-    box-shadow 0.12s ease,
-    background 0.12s ease,
-    color 0.12s ease;
-}
+    /* Month/Year view buttons – mobile-safe, no pale tap state */
+    .view-btn {
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      border: 1px solid rgba(15,23,42,0.25);
+      background: rgba(255,255,255,0.9);
+      cursor: pointer;
+      font-weight: 500;
+      box-shadow: 0 2px 5px rgba(15,23,42,0.16);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+      color: #0f172a !important; /* always readable */
+    }
 
-.view-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 9px rgba(15,23,42,0.22);
-  background: #e0f2fe;
-}
+    .view-btn:hover {
+      background: #e0f2fe;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 9px rgba(15,23,42,0.22);
+    }
 
-/* Pressed / focused state for normal button */
-.view-btn:active,
-.view-btn:focus-visible {
-  transform: scale(0.96);
-  background: #e5e7eb;
-  color: #0f172a;
-}
+    .view-btn:active {
+      background: #e0f2fe !important;
+      color: #0f172a !important;
+      transform: scale(0.97);
+      box-shadow: inset 0 0 2px rgba(15,23,42,0.3);
+    }
 
-/* Selected (active) view button */
-.view-btn-active {
-  background: #0f766e;
-  color: #ecfeff;          /* white text when selected */
-  border-color: #0e7490;
-  box-shadow: 0 3px 9px rgba(15,118,110,0.45);
-}
+    .view-btn:focus,
+    .view-btn:focus-visible {
+      outline: none !important;
+      box-shadow: 0 0 0 transparent !important;
+    }
 
-/* Pressed / focused state for selected button – keep teal + white */
-.view-btn-active:active,
-.view-btn-active:focus-visible {
-  background: #0f766e;
-  color: #ecfeff;
-}
+    .view-btn-active {
+      background: #0f766e !important;
+      color: #ffffff !important;
+      border-color: #0e7490 !important;
+      box-shadow: 0 3px 9px rgba(15,118,110,0.45);
+    }
+
+    .view-btn-active:active {
+      background: #0f766e !important;
+      color: #ffffff !important;
+      transform: scale(0.97);
+    }
 
     .calendar {
       width: 100%;
@@ -1327,7 +1331,8 @@ function initMonthSelector(){
 
   monthSelect.onchange = () => {
     currentMonth = parseInt(monthSelect.value,10);
-    renderCalendar();
+    if(viewMode==="month") renderCalendar();
+    else renderYear();
   };
   yearInput.onchange = () => {
     currentYear = parseInt(yearInput.value,10);
