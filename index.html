@@ -96,10 +96,10 @@
       border: 1px solid #555;
     }
 
-    /* Menu button – nicer pill style */
+    /* Menu button */
     #menuBtn {
       font-size: 22px;
-      background: linear-gradient(135deg, rgba(248,250,252,0.95), rgba(226,232,240,0.95));
+      background: #f9fafb;
       border-radius: 999px;
       border: 1px solid rgba(15,23,42,0.15);
       cursor: pointer;
@@ -109,7 +109,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
 
     #menuBtn:hover {
@@ -145,7 +145,7 @@
       font-size: 0.98rem;
     }
 
-    /* Bigger, clearer close button for admin panel */
+    /* Admin close button */
     #adminCloseBtn {
       position: absolute;
       top: 10px;
@@ -154,14 +154,14 @@
       color: #000000;
       border-radius: 999px;
       width: 90px;
-      height: 38px;
+      height: 34px;
       border: 1px solid #020617;
       font-size: 14px;
       text-align: center;
-      line-height: 36px;
+      line-height: 32px;
       cursor: pointer;
       box-shadow: 0 4px 10px rgba(15,23,42,0.4);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
 
     #adminCloseBtn:hover {
@@ -174,26 +174,25 @@
       transform: scale(0.96);
     }
 
-    /* Admin panel buttons – nicer styling */
+    /* Admin panel buttons */
     #adminPanel button {
       width: 100%;
       padding: 9px 10px;
       margin: 8px 0;
       font-size: 0.9rem;
-      border-radius: 12px;
+      border-radius: 10px;
       border: 1px solid #cbd5e1;
-      background: linear-gradient(135deg, #e0f2fe, #bfdbfe);
+      background: #e0f2fe;
       cursor: pointer;
       text-align: left;
       font-weight: 500;
       box-shadow: 0 3px 8px rgba(15,23,42,0.12);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
 
     #adminPanel button:hover {
       transform: translateY(-1px);
       box-shadow: 0 6px 14px rgba(15,23,42,0.2);
-      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
     }
 
     #adminPanel button:active {
@@ -229,13 +228,12 @@
       outline: none;
     }
 
-    /* Round property buttons – nicer look */
     .prop-btn {
       width: 30px;
       height: 30px;
       border-radius: 999px;
       border: 1px solid rgba(15,23,42,0.18);
-      background: linear-gradient(135deg, #f9fafb, #e5e7eb);
+      background: #f3f4f6;
       font-size: 18px;
       padding: 0;
       cursor: pointer;
@@ -243,13 +241,12 @@
       align-items: center;
       justify-content: center;
       box-shadow: 0 2px 6px rgba(15,23,42,0.16);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
 
     .prop-btn:hover {
       transform: translateY(-1px);
       box-shadow: 0 4px 10px rgba(15,23,42,0.24);
-      background: linear-gradient(135deg, #eef2ff, #e5e7eb);
     }
 
     .prop-btn:active {
@@ -258,8 +255,8 @@
     }
 
     .prop-del {
-      background: linear-gradient(135deg, rgba(248,113,113,0.18), rgba(248,113,113,0.35));
-      border-color: rgba(248,113,113,0.6);
+      background: #fee2e2;
+      border-color: #fecaca;
       color: #b91c1c;
     }
 
@@ -290,23 +287,21 @@
 
     #yearInput { width: 64px; }
 
-    /* Month navigation buttons */
     .nav-btn {
       border-radius: 999px;
       padding: 3px 10px;
       border: 1px solid rgba(15,23,42,0.15);
-      background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+      background: #e0f2fe;
       cursor: pointer;
       font-size: 0.8rem;
       font-weight: 500;
       box-shadow: 0 2px 6px rgba(15,23,42,0.16);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
 
     .nav-btn:hover {
       transform: translateY(-1px);
       box-shadow: 0 4px 10px rgba(15,23,42,0.22);
-      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
     }
 
     .nav-btn:active {
@@ -321,31 +316,28 @@
       margin-bottom: 8px;
     }
 
-    /* Month/Year view buttons – mobile-safe, no pale tap state */
+    /* Month/Year view buttons – simple, mobile-safe */
     .view-btn {
       padding: 6px 14px;
       border-radius: 999px;
       font-size: 0.78rem;
       border: 1px solid rgba(15,23,42,0.25);
-      background: rgba(255,255,255,0.9);
+      background: #f3f4f6;
       cursor: pointer;
       font-weight: 500;
-      box-shadow: 0 2px 5px rgba(15,23,42,0.16);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-      color: #0f172a !important; /* always readable */
+      color: #111827;
+      box-shadow: 0 1px 3px rgba(15,23,42,0.2);
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
     }
 
     .view-btn:hover {
-      background: #e0f2fe;
+      background: #e5e7eb;
       transform: translateY(-1px);
-      box-shadow: 0 4px 9px rgba(15,23,42,0.22);
     }
 
     .view-btn:active {
-      background: #e0f2fe !important;
-      color: #0f172a !important;
+      background: #d1d5db;
       transform: scale(0.97);
-      box-shadow: inset 0 0 2px rgba(15,23,42,0.3);
     }
 
     .view-btn:focus,
@@ -355,15 +347,15 @@
     }
 
     .view-btn-active {
-      background: #0f766e !important;
-      color: #ffffff !important;
-      border-color: #0e7490 !important;
-      box-shadow: 0 3px 9px rgba(15,118,110,0.45);
+      background: #0f766e;
+      color: #ffffff;
+      border-color: #0f766e;
+      box-shadow: 0 2px 6px rgba(15,118,110,0.5);
     }
 
     .view-btn-active:active {
-      background: #0f766e !important;
-      color: #ffffff !important;
+      background: #0d665f;
+      color: #ffffff;
       transform: scale(0.97);
     }
 
@@ -386,7 +378,6 @@
       background: rgba(255,255,255,0.15);
     }
 
-    /* Day button – subtle, tappable card */
     .day-btn {
       width: 100%;
       height: 100%;
@@ -505,7 +496,7 @@
     }
 
     #popupCard {
-      background: rgba(255,255,255,0.88);
+      background: rgba(255,255,255,0.9);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       border-radius: 18px;
@@ -533,7 +524,7 @@
       padding: 4px 10px;
       border-radius: 999px;
       border: 1px solid #cbd5e1;
-      background: linear-gradient(135deg, #e5e7eb, #f9fafb);
+      background: #e5e7eb;
       font-size: 0.78rem;
       cursor: pointer;
       box-shadow: 0 2px 6px rgba(15,23,42,0.18);
@@ -561,13 +552,13 @@
       font-size: 0.8rem;
       cursor: pointer;
       box-shadow: 0 3px 8px rgba(15,23,42,0.25);
-      background: linear-gradient(135deg, #0f172a, #1f2937);
+      background: #0f172a;
       color: #f9fafb;
     }
 
     #popupCancel {
       border-color: #cbd5e1;
-      background: linear-gradient(135deg, #e5e7eb, #f9fafb);
+      background: #e5e7eb;
       color: #111827;
       box-shadow: 0 2px 6px rgba(15,23,42,0.15);
     }
@@ -665,7 +656,7 @@
   <button id="btnDeleteUser">Delete a name &amp; bookings</button>
 </div>
 
-<!-- Glass-style popup (replaces alert/confirm/prompt) -->
+<!-- Glass-style popup -->
 <div id="popupOverlay">
   <div id="popupCard">
     <div id="popupMessage"></div>
@@ -775,14 +766,12 @@ function showPopup({
   choices = null
 }) {
   return new Promise(resolve => {
-    // Set message
     popupMessage.textContent = message || "";
 
-    // Handle input
-    popupInput.style.display = input ? "block" : "none";
-    popupInput.value = input ? (defaultValue || "") : "";
+    const hasInput = !!input;
+    popupInput.style.display = hasInput ? "block" : "none";
+    popupInput.value = hasInput ? (defaultValue || "") : "";
 
-    // Handle choices
     const hasChoices = Array.isArray(choices) && choices.length > 0;
     popupChoices.innerHTML = "";
     if (hasChoices) {
@@ -795,11 +784,9 @@ function showPopup({
       });
     }
 
-    // Buttons + labels
     popupOk.textContent = okText;
     popupCancel.textContent = cancelText;
 
-    // Show/hide OK/Cancel based on mode
     popupOk.style.display = hasChoices ? "none" : "inline-block";
     popupCancel.style.display = (showCancel || hasChoices) ? "inline-block" : "none";
 
@@ -813,19 +800,19 @@ function showPopup({
 
     if (!hasChoices) {
       popupOk.onclick = () => {
-        const value = input ? popupInput.value : true;
+        const value = hasInput ? popupInput.value : true;
         cleanup(value);
       };
     }
 
     popupCancel.onclick = () => {
-      const value = input ? null : false;
+      const value = hasInput ? null : false;
       cleanup(value);
     };
 
     popupOverlay.style.display = "flex";
 
-    if (input) {
+    if (hasInput) {
       popupInput.focus();
       popupInput.select();
     }
@@ -835,15 +822,12 @@ function showPopup({
 function customAlert(message) {
   return showPopup({ message, showCancel: false, input: false });
 }
-
 function customConfirm(message) {
   return showPopup({ message, showCancel: true, input: false });
 }
-
 function customPrompt(message, defaultValue = "") {
   return showPopup({ message, showCancel: true, input: true, defaultValue });
 }
-
 function customSelect(message, options) {
   return showPopup({ message, showCancel: true, input: false, choices: options });
 }
@@ -853,9 +837,7 @@ async function askForName(){
   let n = "";
   while(!n){
     const input = await customPrompt("Enter your name:", "Guest");
-    if (input === null) {
-      continue;
-    }
+    if (input === null) continue;
     n = input.trim();
     if (!n) n = "Guest";
 
@@ -902,7 +884,6 @@ function updateUserUI(){
 menuBtn.onclick = () => {
   adminPanel.classList.add("open");
 };
-
 adminCloseBtn.onclick = () => {
   adminPanel.classList.remove("open");
 };
@@ -984,6 +965,8 @@ btnRenameUser.onclick = async () => {
 
   const newName = await customPrompt('Enter new name for "' + oldName + '":', oldName);
   if (!newName) return;
+  const trimmed = newName.trim();
+  if (!trimmed) return;
 
   const userRef = db.ref("users/"+oldName);
   const snap = await userRef.once("value");
@@ -992,7 +975,7 @@ btnRenameUser.onclick = async () => {
     return;
   }
   const data = snap.val();
-  await db.ref("users/"+newName).set(data);
+  await db.ref("users/"+trimmed).set(data);
 
   const root = db.ref("bookings");
   root.once("value", snapshot=>{
@@ -1000,7 +983,7 @@ btnRenameUser.onclick = async () => {
       propSnap.forEach(dateSnap=>{
         const val = dateSnap.val();
         if(val && val.name === oldName){
-          dateSnap.ref.update({name:newName});
+          dateSnap.ref.update({name:trimmed});
         }
       });
     });
@@ -1008,11 +991,11 @@ btnRenameUser.onclick = async () => {
   await userRef.remove();
 
   if(currentUserName === oldName){
-    currentUserName = newName;
-    localStorage.setItem("hh_user_name", newName);
+    currentUserName = trimmed;
+    localStorage.setItem("hh_user_name", trimmed);
     updateUserUI();
   }
-  await customAlert('Name changed from "'+oldName+'" to "'+newName+'".');
+  await customAlert('Name changed from "'+oldName+'" to "'+trimmed+'".');
   adminPanel.classList.remove("open");
 };
 
