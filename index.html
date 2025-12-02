@@ -89,6 +89,330 @@
       gap: 4px;
     }
 
+    .colour-pre {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid #555;
+    }
+
+    /* Menu button – nicer pill style */
+    #menuBtn {
+      font-size: 22px;
+      background: linear-gradient(135deg, rgba(248,250,252,0.95), rgba(226,232,240,0.95));
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,42,0.15);
+      cursor: pointer;
+      padding: 4px 12px 6px;
+      line-height: 1;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    #menuBtn:hover {
+      box-shadow: 0 6px 14px rgba(15,23,42,0.24);
+      transform: translateY(-1px);
+    }
+
+    #menuBtn:active {
+      transform: scale(0.96);
+      box-shadow: 0 2px 6px rgba(15,23,42,0.3);
+    }
+
+    /* Slide-out admin panel */
+    #adminPanel {
+      position: fixed;
+      top: 0;
+      right: -260px;
+      width: 260px;
+      height: 100%;
+      background: rgba(248,250,252,0.96);
+      box-shadow: -6px 0 20px rgba(0,0,0,0.4);
+      transition: right 0.28s ease;
+      padding: 46px 16px 20px;
+      z-index: 9999;
+      font-size: 0.9rem;
+    }
+
+    #adminPanel.open { right: 0; }
+
+    #adminPanel h3 {
+      margin: 12px 0 6px;
+      text-align: left;
+      font-size: 0.98rem;
+    }
+
+    /* Bigger, clearer close button for admin panel */
+    #adminCloseBtn {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #e5e7eb;
+      color: #000000;
+      border-radius: 999px;
+      width: 90px;
+      height: 38px;
+      border: 1px solid #020617;
+      font-size: 14px;
+      text-align: center;
+      line-height: 36px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(15,23,42,0.4);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    #adminCloseBtn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(15,23,42,0.5);
+      background: #cbd5e1;
+    }
+
+    #adminCloseBtn:active {
+      transform: scale(0.96);
+    }
+
+    /* Admin panel buttons – nicer styling */
+    #adminPanel button {
+      width: 100%;
+      padding: 9px 10px;
+      margin: 8px 0;
+      font-size: 0.9rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      background: linear-gradient(135deg, #e0f2fe, #bfdbfe);
+      cursor: pointer;
+      text-align: left;
+      font-weight: 500;
+      box-shadow: 0 3px 8px rgba(15,23,42,0.12);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    #adminPanel button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(15,23,42,0.2);
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    }
+
+    #adminPanel button:active {
+      transform: scale(0.97);
+      box-shadow: 0 2px 6px rgba(15,23,42,0.25);
+    }
+
+    .admin-caption {
+      font-size: 0.78rem;
+      color: #64748b;
+      margin-bottom: 6px;
+    }
+
+    .property-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+    }
+
+    .property-label {
+      white-space: nowrap;
+      font-weight: 500;
+    }
+
+    .property-select {
+      flex: 1;
+      padding: 6px 8px;
+      font-size: 0.85rem;
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,42,0.18);
+      background: rgba(255,255,255,0.9);
+      outline: none;
+    }
+
+    /* Round property buttons – nicer look */
+    .prop-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,42,0.18);
+      background: linear-gradient(135deg, #f9fafb, #e5e7eb);
+      font-size: 18px;
+      padding: 0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(15,23,42,0.16);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    .prop-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(15,23,42,0.24);
+      background: linear-gradient(135deg, #eef2ff, #e5e7eb);
+    }
+
+    .prop-btn:active {
+      transform: scale(0.95);
+      box-shadow: 0 1px 4px rgba(15,23,42,0.3);
+    }
+
+    .prop-del {
+      background: linear-gradient(135deg, rgba(248,113,113,0.18), rgba(248,113,113,0.35));
+      border-color: rgba(248,113,113,0.6);
+      color: #b91c1c;
+    }
+
+    .month-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      margin-bottom: 4px;
+    }
+
+    .month-center {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    #monthSelect, #yearInput {
+      padding: 4px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,42,0.18);
+      background: rgba(255,255,255,0.9);
+      font-size: 0.8rem;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    #yearInput { width: 64px; }
+
+    /* Month navigation buttons */
+    .nav-btn {
+      border-radius: 999px;
+      padding: 3px 10px;
+      border: 1px solid rgba(15,23,42,0.15);
+      background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 500;
+      box-shadow: 0 2px 6px rgba(15,23,42,0.16);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(15,23,42,0.22);
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    }
+
+    .nav-btn:active {
+      transform: scale(0.95);
+      box-shadow: 0 1px 4px rgba(15,23,42,0.3);
+    }
+
+    .view-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    /* Month/Year view buttons – mobile-safe, no pale tap state */
+    .<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ash Shack Use</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1b4d6b">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent; /* remove iOS/Android tap flash */
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: "Poppins", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      color: #102024;
+    }
+
+    body {
+      background: url("river-bg.jpg") no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 420px;
+      padding: 14px 10px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.22);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.4);
+      box-shadow: 0 14px 35px rgba(0,0,0,0.25);
+      padding: 10px 12px;
+    }
+
+    .card-compact { padding: 8px 10px; }
+
+    .card-header { text-align: center; }
+
+    h1 {
+      margin: 0;
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      margin-top: 4px;
+      font-size: 0.8rem;
+      color: #103445;
+    }
+
+    .guest-notice {
+      margin-top: 4px;
+      font-size: 0.7rem;
+      color: #b91c1c;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      margin-top: 6px;
+    }
+
+    .user-label {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
     .colour-preview {
       width: 14px;
       height: 14px;
@@ -366,6 +690,1031 @@
       color: #ffffff !important;
       transform: scale(0.97);
     }
+
+    .calendar {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.75rem;
+    }
+
+    .calendar thead th {
+      padding: 4px 0;
+      color: #0f172a;
+      font-weight: 600;
+    }
+
+    .calendar td {
+      height: 44px;
+      padding: 0;
+      border: 1px solid rgba(15,23,42,0.08);
+      background: rgba(255,255,255,0.15);
+    }
+
+    /* Day button – subtle, tappable card */
+    .day-btn {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.07s ease, box-shadow 0.08s ease, background 0.08s ease;
+      border-radius: 10px;
+      padding: 1px 2px;
+    }
+
+    .day-btn:hover {
+      background: rgba(248,250,252,0.9);
+      box-shadow: 0 1px 4px rgba(15,23,42,0.2);
+    }
+
+    .day-btn:active {
+      transform: scale(0.96);
+      box-shadow: inset 0 0 0 1px rgba(15,23,42,0.2);
+    }
+
+    .day-number {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 2px;
+    }
+
+    .booking-badge {
+      font-size: 0.6rem;
+      padding: 1px 6px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.9);
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #yearView { margin-top: 4px; }
+
+    .year-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+    }
+
+    .year-month {
+      border-radius: 14px;
+      border: 1px solid rgba(15,23,42,0.12);
+      background: rgba(255,255,255,0.2);
+      padding: 4px;
+    }
+
+    .year-month-title {
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .calendar-mini {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.65rem;
+    }
+
+    .calendar-mini th { padding: 2px 0; }
+
+    .calendar-mini td {
+      height: 24px;
+      padding: 0;
+      border: 1px solid rgba(15,23,42,0.08);
+      background: rgba(255,255,255,0.12);
+    }
+
+    .calendar-mini .day-btn { font-size: 0.65rem; }
+
+    .user-legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4px 8px;
+      font-size: 0.74rem;
+    }
+
+    .user-legend-item {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .user-legend-swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 4px;
+      border: 1px solid #1f2933;
+    }
+
+    button { font-family: inherit; }
+
+    /* Glass-style popup overlay */
+    #popupOverlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15,23,42,0.35);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 10000;
+    }
+
+    #popupCard {
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.7);
+      padding: 14px 16px 12px;
+      max-width: 320px;
+      width: 88%;
+      box-shadow: 0 16px 38px rgba(0,0,0,0.35);
+      font-size: 0.9rem;
+    }
+
+    #popupMessage {
+      margin-bottom: 10px;
+      white-space: pre-wrap;
+    }
+
+    #popupChoices {
+      margin: 6px 0 4px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .popup-choice-btn {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #cbd5e1;
+      background: linear-gradient(135deg, #e5e7eb, #f9fafb);
+      font-size: 0.78rem;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(15,23,42,0.18);
+    }
+
+    #popupInput {
+      width: 100%;
+      padding: 7px 9px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      font-size: 0.88rem;
+    }
+
+    #popupButtons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    #popupOk, #popupCancel {
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid #0f172a;
+      font-size: 0.8rem;
+      cursor: pointer;
+      box-shadow: 0 3px 8px rgba(15,23,42,0.25);
+      background: linear-gradient(135deg, #0f172a, #1f2937);
+      color: #f9fafb;
+    }
+
+    #popupCancel {
+      border-color: #cbd5e1;
+      background: linear-gradient(135deg, #e5e7eb, #f9fafb);
+      color: #111827;
+      box-shadow: 0 2px 6px rgba(15,23,42,0.15);
+    }
+
+    @media (max-width: 360px) {
+      .app { padding: 8px; }
+      .card { border-radius: 18px; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="card card-compact">
+    <div class="card-header">
+      <h1>Ash Shack Use</h1>
+      <div class="subtitle">Tap a day to book it.</div>
+      <div id="guestNotice" class="guest-notice" style="display:none;">
+        Guests can only view bookings - contact admin for name to make bookings
+      </div>
+    </div>
+    <div class="top-bar">
+      <div class="user-label">
+        <span>You:</span>
+        <span id="userNameLabel" style="font-weight:500;"></span>
+        <span id="userColourPreview" class="colour-preview"></span>
+      </div>
+      <button id="menuBtn">⋯</button>
+    </div>
+  </div>
+
+  <div class="card card-compact">
+    <div class="property-bar">
+      <span class="property-label">Property:</span>
+      <select id="propertySelect" class="property-select"></select>
+      <button id="addPropertyBtn" class="prop-btn">+</button>
+      <button id="deletePropertyBtn" class="prop-btn prop-del">−</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="month-nav">
+      <button id="prevMonthBtn" class="nav-btn">◀</button>
+      <div class="month-center">
+        <select id="monthSelect"></select>
+        <input id="yearInput" type="number">
+      </div>
+      <button id="nextMonthBtn" class="nav-btn">▶</button>
+    </div>
+
+    <div class="view-toggle">
+      <button id="viewMonthBtn" class="view-btn view-btn-active">Month</button>
+      <button id="viewYearBtn" class="view-btn">Year</button>
+    </div>
+
+    <div id="monthView">
+      <table class="calendar">
+        <thead>
+          <tr>
+            <th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th>
+            <th>Thu</th><th>Fri</th><th>Sat</th>
+          </tr>
+        </thead>
+        <tbody id="calendarBody"></tbody>
+      </table>
+    </div>
+
+    <div id="yearView" style="display:none;">
+      <div class="year-grid" id="yearGrid"></div>
+    </div>
+  </div>
+
+  <div class="card card-compact">
+    <div id="userLegend" class="user-legend"></div>
+  </div>
+</div>
+
+<!-- Admin panel -->
+<div id="adminPanel">
+  <button id="adminCloseBtn">Close</button>
+
+  <h3>Admin options</h3>
+  <div class="admin-caption">
+    The name on this device is saved locally. Admin code is needed for any changes.
+  </div>
+
+  <button id="btnChangeName">Change this device name</button>
+
+  <h3>Manage names</h3>
+  <div class="admin-caption">
+    Tools to manage saved names and their bookings.
+  </div>
+
+  <button id="btnAddUser">Add a new name</button>
+  <button id="btnRenameUser">Rename a saved name</button>
+  <button id="btnDeleteUser">Delete a name &amp; bookings</button>
+</div>
+
+<!-- Glass-style popup (replaces alert/confirm/prompt) -->
+<div id="popupOverlay">
+  <div id="popupCard">
+    <div id="popupMessage"></div>
+    <div id="popupChoices"></div>
+    <input id="popupInput" />
+    <div id="popupButtons">
+      <button id="popupCancel">Cancel</button>
+      <button id="popupOk">OK</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+const ADMIN_CODE = "1746";
+
+firebase.initializeApp({
+  apiKey: "AIzaSyDXdfo2XI7xuHs3LOc6q4CbVpMudHfBTCs",
+  authDomain: "ash-shack.firebaseapp.com",
+  databaseURL: "https://ash-shack-default-rtdb.firebaseio.com",
+  projectId: "ash-shack",
+  storageBucket: "ash-shack.firebasestorage.app",
+  messagingSenderId: "7831464900",
+  appId: "1:7831464900:web:18f1c72f0c37f667005291"
+});
+const db = firebase.database();
+
+/* STATE */
+let currentUserName = null;
+let currentPropertyId = null;
+let bookingsRef = null;
+let bookings = {};
+let userColours = {};
+let currentYear = new Date().getFullYear();
+let currentMonth = new Date().getMonth();
+let viewMode = "month";
+
+/* DOM */
+const userNameLabel = document.getElementById("userNameLabel");
+const userColourPreview = document.getElementById("userColourPreview");
+const menuBtn = document.getElementById("menuBtn");
+const adminPanel = document.getElementById("adminPanel");
+const adminCloseBtn = document.getElementById("adminCloseBtn");
+const btnChangeName = document.getElementById("btnChangeName");
+const btnAddUser   = document.getElementById("btnAddUser");
+const btnRenameUser = document.getElementById("btnRenameUser");
+const btnDeleteUser = document.getElementById("btnDeleteUser");
+const guestNotice = document.getElementById("guestNotice");
+
+const propertySelect = document.getElementById("propertySelect");
+const addPropertyBtn = document.getElementById("addPropertyBtn");
+const deletePropertyBtn = document.getElementById("deletePropertyBtn");
+const monthSelect = document.getElementById("monthSelect");
+const yearInput = document.getElementById("yearInput");
+const prevMonthBtn = document.getElementById("prevMonthBtn");
+const nextMonthBtn = document.getElementById("nextMonthBtn");
+const viewMonthBtn = document.getElementById("viewMonthBtn");
+const viewYearBtn = document.getElementById("viewYearBtn");
+const monthView = document.getElementById("monthView");
+const yearView = document.getElementById("yearView");
+const calendarBody = document.getElementById("calendarBody");
+const yearGrid = document.getElementById("yearGrid");
+const userLegend = document.getElementById("userLegend");
+
+/* Popup DOM */
+const popupOverlay = document.getElementById("popupOverlay");
+const popupMessage = document.getElementById("popupMessage");
+const popupInput   = document.getElementById("popupInput");
+const popupOk      = document.getElementById("popupOk");
+const popupCancel  = document.getElementById("popupCancel");
+const popupChoices = document.getElementById("popupChoices");
+
+/* HELPERS */
+const MONTH_NAMES = [
+  "January","February","March","April","May","June",
+  "July","August","September","October","November","December"
+];
+
+function slugify(t){
+  return t.toLowerCase().trim().replace(/\s+/g,"-").replace(/[^a-z0-9\-]/g,"");
+}
+function formatDateKey(y,m,d){
+  return y + "-" + String(m+1).padStart(2,"0") + "-" + String(d).padStart(2,"0");
+}
+function colourFromName(name){
+  let h = 0;
+  for(let i=0;i<name.length;i++) h = name.charCodeAt(i)+((h<<5)-h);
+  return "hsl(" + (Math.abs(h)%360) + ",65%,75%)";
+}
+function ensureUserColour(name){
+  const ref = db.ref("users/"+name);
+  ref.once("value",snap=>{
+    if(!snap.exists()) ref.set({colour:colourFromName(name)});
+  });
+}
+
+/* Glass-style popup system */
+function showPopup({
+  message,
+  showCancel = false,
+  input = false,
+  defaultValue = "",
+  okText = "OK",
+  cancelText = "Cancel",
+  choices = null
+}) {
+  return new Promise(resolve => {
+    // Set message
+    popupMessage.textContent = message || "";
+
+    // Handle input
+    popupInput.style.display = input ? "block" : "none";
+    popupInput.value = input ? (defaultValue || "") : "";
+
+    // Handle choices
+    const hasChoices = Array.isArray(choices) && choices.length > 0;
+    popupChoices.innerHTML = "";
+    if (hasChoices) {
+      choices.forEach(option => {
+        const btn = document.createElement("button");
+        btn.className = "popup-choice-btn";
+        btn.textContent = option;
+        btn.onclick = () => cleanup(option);
+        popupChoices.appendChild(btn);
+      });
+    }
+
+    // Buttons + labels
+    popupOk.textContent = okText;
+    popupCancel.textContent = cancelText;
+
+    // Show/hide OK/Cancel based on mode
+    popupOk.style.display = hasChoices ? "none" : "inline-block";
+    popupCancel.style.display = (showCancel || hasChoices) ? "inline-block" : "none";
+
+    function cleanup(value) {
+      popupOverlay.style.display = "none";
+      popupOk.onclick = null;
+      popupCancel.onclick = null;
+      popupChoices.querySelectorAll("button").forEach(btn => (btn.onclick = null));
+      resolve(value);
+    }
+
+    if (!hasChoices) {
+      popupOk.onclick = () => {
+        const value = input ? popupInput.value : true;
+        cleanup(value);
+      };
+    }
+
+    popupCancel.onclick = () => {
+      const value = input ? null : false;
+      cleanup(value);
+    };
+
+    popupOverlay.style.display = "flex";
+
+    if (input) {
+      popupInput.focus();
+      popupInput.select();
+    }
+  });
+}
+
+function customAlert(message) {
+  return showPopup({ message, showCancel: false, input: false });
+}
+
+function customConfirm(message) {
+  return showPopup({ message, showCancel: true, input: false });
+}
+
+function customPrompt(message, defaultValue = "") {
+  return showPopup({ message, showCancel: true, input: true, defaultValue });
+}
+
+function customSelect(message, options) {
+  return showPopup({ message, showCancel: true, input: false, choices: options });
+}
+
+/* USER / PROFILE */
+async function askForName(){
+  let n = "";
+  while(!n){
+    const input = await customPrompt("Enter your name:", "Guest");
+    if (input === null) {
+      continue;
+    }
+    n = input.trim();
+    if (!n) n = "Guest";
+
+    if (n === "Guest") {
+      const proceed = await customConfirm(
+        'If you continue as "Guest", you will NOT be able to make bookings.\n\n' +
+        'You will need an admin code later to change this name.\n\n' +
+        'Continue as "Guest"?'
+      );
+      if (!proceed) {
+        n = "";
+        continue;
+      }
+    }
+  }
+  currentUserName = n;
+  localStorage.setItem("hh_user_name", n);
+  ensureUserColour(n);
+  updateUserUI();
+}
+
+async function initUser(){
+  const stored = localStorage.getItem("hh_user_name");
+  if(stored){
+    currentUserName = stored;
+    ensureUserColour(stored);
+  } else {
+    await askForName();
+  }
+  updateUserUI();
+}
+
+function updateUserUI(){
+  userNameLabel.textContent = currentUserName || "";
+  const col = userColours[currentUserName]?.colour || colourFromName(currentUserName || "");
+  userColourPreview.style.background = col;
+
+  if (guestNotice) {
+    guestNotice.style.display = (currentUserName === "Guest") ? "block" : "none";
+  }
+}
+
+/* ADMIN PANEL */
+menuBtn.onclick = () => {
+  adminPanel.classList.add("open");
+};
+
+adminCloseBtn.onclick = () => {
+  adminPanel.classList.remove("open");
+};
+
+btnChangeName.onclick = async () => {
+  const code = await customPrompt("Admin code required to change this device name:");
+  if (code === null || !code.trim()) return;
+  if (code !== ADMIN_CODE) {
+    await customAlert("Access denied. Ask the owner/manager if this needs to be changed.");
+    return;
+  }
+
+  const newName = await customPrompt("Enter new name for this device:", currentUserName || "");
+  if (!newName) return;
+  const trimmed = newName.trim();
+  if (!trimmed) return;
+
+  const existingSnap = await db.ref("users/" + trimmed).once("value");
+  if (existingSnap.exists() && trimmed !== currentUserName) {
+    const proceed = await customConfirm(
+      'The name "' + trimmed + '" is already registered.\n\n' +
+      "Use this name anyway? (This will NOT move existing bookings.)"
+    );
+    if (!proceed) return;
+  }
+
+  currentUserName = trimmed;
+  localStorage.setItem("hh_user_name", currentUserName);
+  ensureUserColour(currentUserName);
+  updateUserUI();
+  adminPanel.classList.remove("open");
+};
+
+btnAddUser.onclick = async () => {
+  const code = await customPrompt("Admin code required to add a new name:");
+  if (code === null || !code.trim()) return;
+  if (code !== ADMIN_CODE) {
+    await customAlert("Access denied.");
+    return;
+  }
+
+  const name = await customPrompt("Enter new name to add:");
+  if (!name) return;
+  const trimmed = name.trim();
+  if (!trimmed) return;
+
+  if (trimmed === "Guest") {
+    await customAlert('You can’t add "Guest" as a managed name.');
+    return;
+  }
+
+  const userRef = db.ref("users/" + trimmed);
+  const snap = await userRef.once("value");
+  if (snap.exists()) {
+    await customAlert('Name "' + trimmed + '" already exists.');
+    return;
+  }
+
+  await userRef.set({ colour: colourFromName(trimmed) });
+  await customAlert('"' + trimmed + '" has been created.');
+};
+
+btnRenameUser.onclick = async () => {
+  const code = await customPrompt("Admin code required to rename a saved name:");
+  if (code === null || !code.trim()) return;
+  if (code !== ADMIN_CODE) {
+    await customAlert("Access denied.");
+    return;
+  }
+
+  const userNames = Object.keys(userColours || {}).sort();
+  if (!userNames.length) {
+    await customAlert("There are no saved names to rename.");
+    return;
+  }
+
+  const oldName = await customSelect("Select a name to rename:", userNames);
+  if (!oldName) return;
+
+  const newName = await customPrompt('Enter new name for "' + oldName + '":', oldName);
+  if (!newName) return;
+
+  const userRef = db.ref("users/"+oldName);
+  const snap = await userRef.once("value");
+  if(!snap.exists()){
+    await customAlert("Name not found.");
+    return;
+  }
+  const data = snap.val();
+  await db.ref("users/"+newName).set(data);
+
+  const root = db.ref("bookings");
+  root.once("value", snapshot=>{
+    snapshot.forEach(propSnap=>{
+      propSnap.forEach(dateSnap=>{
+        const val = dateSnap.val();
+        if(val && val.name === oldName){
+          dateSnap.ref.update({name:newName});
+        }
+      });
+    });
+  });
+  await userRef.remove();
+
+  if(currentUserName === oldName){
+    currentUserName = newName;
+    localStorage.setItem("hh_user_name", newName);
+    updateUserUI();
+  }
+  await customAlert('Name changed from "'+oldName+'" to "'+newName+'".');
+  adminPanel.classList.remove("open");
+};
+
+btnDeleteUser.onclick = async () => {
+  const code = await customPrompt("Admin code required to delete a name:");
+  if (code === null || !code.trim()) return;
+  if (code !== ADMIN_CODE) {
+    await customAlert("Access denied.");
+    return;
+  }
+
+  const userNames = Object.keys(userColours || {}).sort();
+  if (!userNames.length) {
+    await customAlert("There are no saved names to delete.");
+    return;
+  }
+
+  const delName = await customSelect("Select a name to delete:", userNames);
+  if (!delName) return;
+
+  const confirmDelete = await customConfirm(
+    'Delete "' + delName + '" and all of their bookings?'
+  );
+  if (!confirmDelete) return;
+
+  const userRef = db.ref("users/" + delName);
+  const snap = await userRef.once("value");
+  if(!snap.exists()){
+    await customAlert("Name not found.");
+    return;
+  }
+
+  const root = db.ref("bookings");
+  const snapshot = await root.once("value");
+  snapshot.forEach(propSnap => {
+    propSnap.forEach(dateSnap => {
+      const val = dateSnap.val();
+      if(val && val.name === delName){
+        dateSnap.ref.remove();
+      }
+    });
+  });
+
+  await userRef.remove();
+
+  if(currentUserName === delName){
+    currentUserName = "Guest";
+    localStorage.setItem("hh_user_name", currentUserName);
+    ensureUserColour(currentUserName);
+    updateUserUI();
+  }
+
+  await customAlert('"' + delName + '" and their bookings have been deleted from this system.');
+  adminPanel.classList.remove("open");
+};
+
+/* USERS / LEGEND */
+db.ref("users").on("value",snap=>{
+  userColours = snap.val() || {};
+  updateUserUI();
+  renderLegend();
+  if(viewMode==="month") renderCalendar();
+  else renderYear();
+});
+function renderLegend(){
+  userLegend.innerHTML = "";
+  Object.keys(userColours).sort().forEach(n=>{
+    const col = userColours[n]?.colour || colourFromName(n);
+    const span = document.createElement("span");
+    span.className = "user-legend-item";
+    span.innerHTML =
+      '<span class="user-legend-swatch" style="background:'+col+'"></span>' +
+      n;
+    userLegend.appendChild(span);
+  });
+}
+
+/* PROPERTIES */
+function loadProperties(){
+  db.ref("properties").on("value",snap=>{
+    const props = snap.val() || {};
+    propertySelect.innerHTML = "";
+    const keys = Object.keys(props);
+    if(!keys.length){
+      const id = "default";
+      db.ref("properties/"+id).set({id, name:"Holiday Home"});
+      return;
+    }
+    keys.forEach(id=>{
+      const o = document.createElement("option");
+      o.value = id;
+      o.textContent = props[id].name;
+      propertySelect.appendChild(o);
+    });
+    if(!currentPropertyId || !props[currentPropertyId]) currentPropertyId = keys[0];
+    propertySelect.value = currentPropertyId;
+    attachBookings();
+  });
+}
+propertySelect.onchange = () => {
+  currentPropertyId = propertySelect.value;
+  attachBookings();
+};
+
+addPropertyBtn.onclick = async () => {
+  const code = await customPrompt("Admin code?");
+  if (code === null || !code.trim()) return;
+  if(code !== ADMIN_CODE){
+    await customAlert("Access denied.");
+    return;
+  }
+  let n = await customPrompt("New property name:");
+  if(!n) return;
+  n = n.trim();
+  if(!n) return;
+  const id = slugify(n) || ("prop-"+Date.now());
+  db.ref("properties/"+id).set({id, name:n});
+};
+
+deletePropertyBtn.onclick = async () => {
+  const code = await customPrompt("Admin code?");
+  if (code === null || !code.trim()) return;
+  if(code !== ADMIN_CODE){
+    await customAlert("Access denied.");
+    return;
+  }
+  if(!currentPropertyId) return;
+  const ok = await customConfirm("Delete this property and all bookings?");
+  if(!ok) return;
+  db.ref("properties/"+currentPropertyId).remove();
+  db.ref("bookings/"+currentPropertyId).remove();
+};
+
+/* BOOKINGS */
+function attachBookings(){
+  if(bookingsRef) bookingsRef.off();
+  bookingsRef = db.ref("bookings/"+currentPropertyId);
+  bookingsRef.on("value",snap=>{
+    bookings = snap.val() || {};
+    if(viewMode==="month") renderCalendar();
+    else renderYear();
+  });
+}
+
+async function toggleBooking(key){
+  const existing = bookings[key];
+  const ref = db.ref("bookings/"+currentPropertyId+"/"+key);
+
+  // Guest: view-only, except can clean up old Guest bookings
+  if (currentUserName === "Guest") {
+    if (existing && existing.name === "Guest") {
+      const ok = await customConfirm("Remove this old Guest booking?");
+      if (ok) {
+        ref.remove();
+      }
+    } else {
+      await customAlert("Guests can only view bookings - contact admin for name to make bookings");
+    }
+    return;
+  }
+
+  // No booking: non-Guest can create
+  if(!existing){
+    ref.set({name: currentUserName});
+    return;
+  }
+
+  const isOwner = existing.name === currentUserName;
+
+  // Owner can cancel their own booking
+  if(isOwner){
+    const ok = await customConfirm("Cancel your booking?");
+    if(ok){
+      ref.remove();
+    }
+    return;
+  }
+
+  // Others: admin code required to change
+  const code = await customPrompt(
+    existing.name +
+    " has booked this day.\n\n" +
+    "Admin code is required to change this booking."
+  );
+  if(code === null || !code.trim() || code !== ADMIN_CODE){
+    await customAlert("Access denied. Only the person who booked or an admin can change this.");
+    return;
+  }
+
+  // Admin override: choose clear vs take over
+  const choice = await customConfirm(
+    "Admin override:\n\n" +
+    "OK = Clear this booking\n" +
+    "Cancel = Change it to you (" + currentUserName + ")."
+  );
+  if(choice){
+    ref.remove();
+  } else {
+    ref.set({name: currentUserName});
+  }
+}
+
+/* CALENDAR (MONTH) */
+function renderCalendar(){
+  calendarBody.innerHTML = "";
+  const first = new Date(currentYear,currentMonth,1);
+  const start = first.getDay();
+  const days = new Date(currentYear,currentMonth+1,0).getDate();
+
+  let tr = document.createElement("tr");
+  for(let i=0;i<start;i++) tr.appendChild(document.createElement("td"));
+
+  for(let d=1;d<=days;d++){
+    if(tr.children.length===7){
+      calendarBody.appendChild(tr);
+      tr = document.createElement("tr");
+    }
+    const td = document.createElement("td");
+    const btn = document.createElement("button");
+    btn.className = "day-btn";
+
+    const num = document.createElement("div");
+    num.className = "day-number";
+    num.textContent = d;
+    btn.appendChild(num);
+
+    const key = formatDateKey(currentYear,currentMonth,d);
+    const b = bookings[key];
+    if(b){
+      const col = userColours[b.name]?.colour || colourFromName(b.name);
+      btn.style.background = col;
+      const badge = document.createElement("div");
+      badge.className = "booking-badge";
+      badge.textContent = b.name;
+      btn.appendChild(badge);
+    }
+    btn.onclick = () => { toggleBooking(key); };
+    td.appendChild(btn);
+    tr.appendChild(td);
+  }
+  while(tr.children.length<7) tr.appendChild(document.createElement("td"));
+  calendarBody.appendChild(tr);
+}
+
+/* YEAR VIEW */
+function renderYear(){
+  yearGrid.innerHTML = "";
+  for(let m=0;m<12;m++){
+    const box = document.createElement("div");
+    box.className = "year-month";
+
+    const title = document.createElement("div");
+    title.className = "year-month-title";
+    title.textContent = MONTH_NAMES[m];
+    box.appendChild(title);
+
+    const table = document.createElement("table");
+    table.className = "calendar-mini";
+
+    const thead = document.createElement("thead");
+    const trh = document.createElement("tr");
+    ["S","M","T","W","T","F","S"].forEach(t=>{
+      const th = document.createElement("th");
+      th.textContent = t;
+      trh.appendChild(th);
+    });
+    thead.appendChild(trh);
+    table.appendChild(thead);
+
+    const tbody = document.createElement("tbody");
+    const first = new Date(currentYear,m,1);
+    const start = first.getDay();
+    const days = new Date(currentYear,m+1,0).getDate();
+
+    let tr = document.createElement("tr");
+    for(let i=0;i<start;i++) tr.appendChild(document.createElement("td"));
+
+    for(let d=1;d<=days;d++){
+      if(tr.children.length===7){
+        tbody.appendChild(tr);
+        tr = document.createElement("tr");
+      }
+      const td = document.createElement("td");
+      const btn = document.createElement("button");
+      btn.className = "day-btn";
+      btn.textContent = d;
+
+      const key = formatDateKey(currentYear,m,d);
+      const b = bookings[key];
+      if(b){
+        const col = userColours[b.name]?.colour || colourFromName(b.name);
+        btn.style.background = col;
+      }
+      btn.onclick = () => { toggleBooking(key); };
+      td.appendChild(btn);
+      tr.appendChild(td);
+    }
+    while(tr.children.length<7) tr.appendChild(document.createElement("td"));
+    tbody.appendChild(tr);
+    table.appendChild(tbody);
+    box.appendChild(table);
+    yearGrid.appendChild(box);
+  }
+}
+
+/* MONTH/YEAR SELECTOR */
+function initMonthSelector(){
+  MONTH_NAMES.forEach((n,i)=>{
+    const o = document.createElement("option");
+    o.value = i;
+    o.textContent = n;
+    monthSelect.appendChild(o);
+  });
+  monthSelect.value = currentMonth;
+  yearInput.value = currentYear;
+
+  monthSelect.onchange = () => {
+    currentMonth = parseInt(monthSelect.value,10);
+    if(viewMode==="month") renderCalendar();
+    else renderYear();
+  };
+  yearInput.onchange = () => {
+    currentYear = parseInt(yearInput.value,10);
+    if(viewMode==="month") renderCalendar();
+    else renderYear();
+  };
+  prevMonthBtn.onclick = () => {
+    currentMonth--;
+    if(currentMonth<0){ currentMonth=11; currentYear--; }
+    monthSelect.value = currentMonth;
+    yearInput.value = currentYear;
+    if(viewMode==="month") renderCalendar();
+    else renderYear();
+  };
+  nextMonthBtn.onclick = () => {
+    currentMonth++;
+    if(currentMonth>11){ currentMonth=0; currentYear++; }
+    monthSelect.value = currentMonth;
+    yearInput.value = currentYear;
+    if(viewMode==="month") renderCalendar();
+    else renderYear();
+  };
+  viewMonthBtn.onclick = () => {
+    viewMode="month";
+    viewMonthBtn.classList.add("view-btn-active");
+    viewYearBtn.classList.remove("view-btn-active");
+    monthView.style.display="block";
+    yearView.style.display="none";
+    renderCalendar();
+  };
+  viewYearBtn.onclick = () => {
+    viewMode="year";
+    viewYearBtn.classList.add("view-btn-active");
+    viewMonthBtn.classList.remove("view-btn-active");
+    monthView.style.display="none";
+    yearView.style.display="block";
+    renderYear();
+  };
+}
+
+/* INIT */
+async function init(){
+  await initUser();
+  loadProperties();
+  initMonthSelector();
+  renderCalendar();
+
+  if("serviceWorker" in navigator){
+    window.addEventListener("load",()=>{
+      navigator.serviceWorker.register("service-worker.js").catch(()=>{});
+    });
+  }
+}
+init();
+</script>
+</body>
+</html>
+
 
     .calendar {
       width: 100%;
