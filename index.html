@@ -1333,6 +1333,29 @@ function initMonthSelector(){
   });
   monthSelect.value = currentMonth;
   yearInput.value = currentYear;
+  
+  // iPad/iOS Safari: force dynamic <select> + <input> to visually refresh
+  const forcePaint = () => {
+    // Month select
+    monthSelect.selectedIndex = currentMonth;           // stronger than .value on iOS
+    monthSelect.value = String(currentMonth);
+
+    // Year input
+    yearInput.value = String(currentYear);
+
+    // Trigger a repaint + let iOS commit the visual state
+    monthSelect.style.transform = "translateZ(0)";
+    yearInput.style.transform = "translateZ(0)";
+
+    // Dispatch events so iOS updates UI state properly
+    monthSelect.dispatchEvent(new Event("change", { bubbles: true }));
+    yearInput.dispatchEvent(new Event("change", { bubbles: true }));
+  };
+
+  // Run immediately and again next tick (iOS often needs the second one)
+  forcePaint();
+  setTimeout(forcePaint, 0);
+  setTimeout(forcePaint, 50);
 
   monthSelect.onchange = () => {
     currentMonth = parseInt(monthSelect.value,10);
