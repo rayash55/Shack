@@ -1327,17 +1327,36 @@ function renderYear(){
 function initMonthSelector(){
   MONTH_NAMES.forEach((n,i)=>{
     const o = document.createElement("option");
-    o.value = i;
+    o.value = String(i);          // <- make value a string (iOS safer)
     o.textContent = n;
     monthSelect.appendChild(o);
   });
-  monthSelect.value = currentMonth;
-  yearInput.value = currentYear;
-  
+
+  // Handlers FIRST (so forcePaint dispatch does something)
+  monthSelect.onchange = () => {
+    currentMonth = parseInt(monthSelect.value,10);
+    if(viewMode==="month") renderCalendar();
+    else renderYear();
+  };
+
+  // iOS: input event updates more reliably than change for number fields
+  yearInput.oninput = () => {
+    const y = parseInt(yearInput.value,10);
+    if (!Number.isFinite(y)) return;
+    currentYear = y;
+    if(viewMode==="month") renderCalendar();
+    else renderYear();
+  };
+  yearInput.onchange = yearInput.oninput;
+
+  // Set initial UI values (as strings)
+  monthSelect.value = String(currentMonth);
+  yearInput.value = String(currentYear);
+
   // iPad/iOS Safari: force dynamic <select> + <input> to visually refresh
   const forcePaint = () => {
     // Month select
-    monthSelect.selectedIndex = currentMonth;           // stronger than .value on iOS
+    monthSelect.selectedIndex = currentMonth;     // stronger than .value on iOS
     monthSelect.value = String(currentMonth);
 
     // Year input
@@ -1349,7 +1368,7 @@ function initMonthSelector(){
 
     // Dispatch events so iOS updates UI state properly
     monthSelect.dispatchEvent(new Event("change", { bubbles: true }));
-    yearInput.dispatchEvent(new Event("change", { bubbles: true }));
+    yearInput.dispatchEvent(new Event("input",  { bubbles: true }));  // <- input not change
   };
 
   // Run immediately and again next tick (iOS often needs the second one)
@@ -1357,46 +1376,47 @@ function initMonthSelector(){
   setTimeout(forcePaint, 0);
   setTimeout(forcePaint, 50);
 
-  monthSelect.onchange = () => {
-    currentMonth = parseInt(monthSelect.value,10);
-    if(viewMode==="month") renderCalendar();
-    else renderYear();
-  };
-  yearInput.onchange = () => {
-    currentYear = parseInt(yearInput.value,10);
-    if(viewMode==="month") renderCalendar();
-    else renderYear();
-  };
   prevMonthBtn.onclick = () => {
     currentMonth--;
     if(currentMonth<0){ currentMonth=11; currentYear--; }
-    monthSelect.value = currentMonth;
-    yearInput.value = currentYear;
+
+    monthSelect.value = String(currentMonth);
+    yearInput.value = String(currentYear);
+
+    forcePaint(); // <- key: repaint AFTER changing values
     if(viewMode==="month") renderCalendar();
     else renderYear();
   };
+
   nextMonthBtn.onclick = () => {
     currentMonth++;
     if(currentMonth>11){ currentMonth=0; currentYear++; }
-    monthSelect.value = currentMonth;
-    yearInput.value = currentYear;
+
+    monthSelect.value = String(currentMonth);
+    yearInput.value = String(currentYear);
+
+    forcePaint(); // <- key: repaint AFTER changing values
     if(viewMode==="month") renderCalendar();
     else renderYear();
   };
+
   viewMonthBtn.onclick = () => {
     viewMode="month";
     viewMonthBtn.classList.add("view-btn-active");
     viewYearBtn.classList.remove("view-btn-active");
     monthView.style.display="block";
     yearView.style.display="none";
+    forcePaint(); // <- helps iPad refresh controls when swapping views
     renderCalendar();
   };
+
   viewYearBtn.onclick = () => {
     viewMode="year";
     viewYearBtn.classList.add("view-btn-active");
     viewMonthBtn.classList.remove("view-btn-active");
     monthView.style.display="none";
     yearView.style.display="block";
+    forcePaint(); // <- helps iPad refresh controls when swapping views
     renderYear();
   };
 }
