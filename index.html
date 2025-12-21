@@ -1363,18 +1363,39 @@ function initMonthSelector(){
   };
 }
 
-/* WAIT FOR AUTH */
-function waitForAuth() {
-  return new Promise((resolve) => {
+/* WAIT FOR AUTH (with timeout + helpful error) */
+function waitForAuth(timeoutMs = 8000) {
+  return new Promise((resolve, reject) => {
+    const t = setTimeout(() => reject(new Error("auth-timeout")), timeoutMs);
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) resolve(user);
+      if (user) {
+        clearTimeout(t);
+        resolve(user);
+      }
     });
   });
 }
 
 /* INIT */
 async function init(){
-  await waitForAuth();   // 🔑 ensures auth != null before DB access
+  // Try to sign in first (won’t throw if already signed in)
+  try {
+    await auth.signInAnonymously();
+  } catch (e) {
+    console.error("Anonymous auth failed:", e);
+  }
+
+  // Now wait for auth (but don’t hang forever)
+  try {
+    await waitForAuth(8000);
+  } catch (e) {
+    await customAlert(
+      "Can’t sign in to Firebase.\n\n" +
+      "This usually means Anonymous Auth is NOT enabled in Firebase, or database rules block access.\n\n" +
+      "Ask admin to enable Anonymous sign-in or adjust rules."
+    );
+    return; // stop init
+  }
 
   await initUser();
   loadProperties();
@@ -1387,6 +1408,8 @@ async function init(){
     });
   }
 }
+init();
+
 init();
 </script>
 </body>
