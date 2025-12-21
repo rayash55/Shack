@@ -1356,8 +1356,19 @@ function initMonthSelector(){
   };
 }
 
+/* WAIT FOR AUTH */
+function waitForAuth() {
+  return new Promise((resolve) => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) resolve(user);
+    });
+  });
+}
+
 /* INIT */
 async function init(){
+  await waitForAuth();   // 🔑 ensures auth != null before DB access
+
   await initUser();
   loadProperties();
   initMonthSelector();
@@ -1370,6 +1381,3 @@ async function init(){
   }
 }
 init();
-</script>
-</body>
-</html>
