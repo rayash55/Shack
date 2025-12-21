@@ -284,6 +284,21 @@
       -webkit-appearance: none;
       appearance: none;
     }
+    
+/* Fix iOS/Android select/input text going pale or unreadable */
+#monthSelect, #yearInput {
+  color: #0f172a !important;
+  background: rgba(255,255,255,0.92) !important;
+  -webkit-text-fill-color: #0f172a !important;
+}
+
+#monthSelect:focus, #yearInput:focus,
+#monthSelect:active, #yearInput:active {
+  color: #0f172a !important;
+  background: #ffffff !important;
+  -webkit-text-fill-color: #0f172a !important;
+  outline: none !important;
+}
 
     #yearInput { width: 64px; }
 
